@@ -42,9 +42,9 @@ export default defineConfig({
 
   server: {
     port: 3000,
-    https: {
-      key: fs.readFileSync(`${__dirname}/src/assets/localhost-key.pem`),
-      cert: fs.readFileSync(`${__dirname}/src/assets/localhost.pem`),
-    },
+    // https: {
+    //   key: fs.readFileSync(`${__dirname}/src/assets/localhost-key.pem`),
+    //   cert: fs.readFileSync(`${__dirname}/src/assets/localhost.pem`),
+    // },
   },
 })
