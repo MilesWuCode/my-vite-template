@@ -32,13 +32,15 @@ export default defineConfig({
 
   optimizeDeps: {
     include: [
-      // 'vue',
+      '@headlessui/vue',
+      '@themesberg/flowbite',
+      '@vueuse/head',
+      'vue-router',
+      'vue',
       // '@vue/apollo-composable',
       // 'vuex',
       // '@vueuse/core',
-      // '@vueuse/head',
       // '@vueuse/firebase/useAuth',
-      // 'vue-router',
       // 'vee-validate',
       // 'firebase/app',
       // 'firebase/auth',
