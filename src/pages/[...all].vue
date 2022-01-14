@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useHead } from '@vueuse/head'
-import Title from '~/components/pcs/Title.vue'
+import Title from '~/components/pieces/Title.vue'
 
 useHead({
   title: '404 Not Found',

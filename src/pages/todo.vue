@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useHead } from '@vueuse/head'
-import Title from '~/components/pcs/Title.vue'
-import Alert from '~/components/pcs/Alert.vue'
+import Title from '~/components/pieces/Title.vue'
+import Alert from '~/components/pieces/Alert.vue'
 useHead({
   title: 'Todo Title',
   meta: [
