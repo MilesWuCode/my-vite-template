@@ -1,5 +1,10 @@
+<script setup lang="ts">
+import Navbar from '~/components/pcs/Navbar.vue';
+</script>
+
 <template>
-  <div>
+  <main>
+    <Navbar />
     <router-view />
-  </div>
+  </main>
 </template>

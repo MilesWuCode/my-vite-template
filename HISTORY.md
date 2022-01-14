@@ -2,13 +2,13 @@
 # pnpm
 npm install -g pnpm
 
-# 路由
+# Router
 pnpm i vue-router@4
 
-# 頁面
+# Pages
 pnpm i vite-plugin-pages
 
-# Layout
+# Layouts
 pnpm i vite-plugin-vue-layouts
 
 # vite.config.ts > path
@@ -17,6 +17,20 @@ pnpm i @types/node
 
 # SEO
 pnpm i @vueuse/head
+
+# Tailwind CSS
+pnpm i tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+# ICONS, autoInstall: true 自動安裝來源
+pnpm i unplugin-icons @iconify/json
+
+# UI
+@headlessui/vue
+# not working
+pnpm i @themesberg/flowbite
+
+
 ```
 
 ```diff
@@ -24,6 +38,11 @@ pnpm i @vueuse/head
 # tsconfig.json
 {
   "compilerOptions": {
+    "types": [
++     "vite-plugin-pages/client",
++     "vite-plugin-vue-layouts/client",
++     "unplugin-icons/types/vue"
+    ],
 +   "paths": {
 +     "~/*": ["./src/*"]
 +   }

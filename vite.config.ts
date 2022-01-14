@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
+import Icons from 'unplugin-icons/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,7 +21,13 @@ export default defineConfig({
     Pages(),
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
-    Layouts()
+    Layouts(),
+
+    // https://github.com/antfu/unplugin-icons
+    Icons({
+      // 自動安裝來源
+      autoInstall: true
+    }),
   ],
 
   optimizeDeps: {
