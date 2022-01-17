@@ -30,7 +30,8 @@ pnpm i unplugin-icons @iconify/json
 # not working
 pnpm i @themesberg/flowbite
 
-
+# form validate
+pnpm i vee-validate@next yup
 ```
 
 ```diff
