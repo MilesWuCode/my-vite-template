@@ -53,7 +53,7 @@ const onReset = () => {
 
         <div class="form-control">
           <label class="label">
-            <span class="label-text">Username</span>
+            <span class="label-text">Email</span>
           </label>
           <input
             type="text"
@@ -88,7 +88,7 @@ const onReset = () => {
             type="submit"
             :disabled="!meta.valid || isSubmitting"
             class="btn btn-info"
-          >Login</button>
+          >Submit</button>
           <button
             @click="onReset"
             type="button"
