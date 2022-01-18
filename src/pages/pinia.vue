@@ -18,16 +18,16 @@ const random = () => {
 <template>
   <div>
     <Title name="Pinia" />
-    <pre>
-        <code class="block">{{ JSON.stringify(store, undefined, 2) }}</code>
-    </pre>
     <div class="mr-2 badge badge-outline">counter : {{ counter }}</div>
     <div class="mr-2 badge badge-outline">doubleCount : {{ doubleCount }}</div>
-    <div>
+    <div class="my-2 space-x-2">
       <button @click="counter++" class="btn btn-accent">+1</button>
       <button @click="reset" class="btn btn-accent">Reset</button>
       <button @click="random" class="btn btn-accent">random</button>
     </div>
+    <pre>
+        <code class="block">{{ JSON.stringify(store, undefined, 2) }}</code>
+    </pre>
   </div>
 </template>
 

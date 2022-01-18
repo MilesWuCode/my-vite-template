@@ -8,7 +8,7 @@ import Menu from '~/components/pieces/Menu.vue';
     <Navbar />
     <div class="drawer drawer-mobile">
       <input id="drawer-menu" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content">
+      <div class="p-2 drawer-content">
         <router-view />
       </div>
       <div class="drawer-side">
