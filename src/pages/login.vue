@@ -51,38 +51,48 @@ const onReset = () => {
       <div class="max-w-sm p-4 mx-auto my-0 space-y-4">
         <h1 class="text-2xl">Login</h1>
 
-        <label class="block">
-          <span class="block text-sm font-medium text-slate-700">Email</span>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Username</span>
+          </label>
           <input
-            v-model="email"
             type="text"
-            class="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400"
-            :class="emailError && '!text-red-500 !border-red-500 !bg-red-100'"
+            v-model="email"
+            placeholder="username"
+            class="input input-bordered"
+            :class="emailError && 'input-error'"
           />
-          <p class="h-5 mt-2 text-sm text-red-500">{{ emailError }}</p>
-        </label>
+          <label class="label">
+            <span class="label-text-alt text-error">{{ emailError }}</span>
+          </label>
+        </div>
 
-        <label class="block">
-          <span class="block text-sm font-medium text-slate-700">Password</span>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Password</span>
+          </label>
           <input
-            v-model="password"
             type="password"
-            class="block w-full px-3 py-2 mt-1 text-sm bg-white border rounded-md shadow-sm border-slate-300 placeholder-slate-400"
-            :class="passwordError && '!text-red-500 !border-red-500 !bg-red-100'"
+            v-model="password"
+            placeholder="password"
+            class="input input-bordered"
+            :class="passwordError && 'input-error'"
           />
-          <p class="h-5 mt-2 text-sm text-red-500">{{ passwordError }}</p>
-        </label>
+          <label class="label">
+            <span class="label-text-alt text-error">{{ passwordError }}</span>
+          </label>
+        </div>
 
-        <div class="flex justify-end space-x-2">
+        <div class="justify-end card-actions">
           <button
             type="submit"
             :disabled="!meta.valid || isSubmitting"
-            class="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-blue-300"
+            class="btn btn-info"
           >Login</button>
           <button
             @click="onReset"
             type="button"
-            class="text-white bg-gray-500 hover:bg-gray-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-gray-400"
+            class="btn btn-ghost"
           >Reset</button>
         </div>
       </div>
