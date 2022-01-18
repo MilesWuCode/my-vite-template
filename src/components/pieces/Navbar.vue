@@ -13,7 +13,7 @@ const navigation = [
 
 <template>
   <div class="mb-2 shadow-lg navbar bg-neutral text-neutral-content">
-    <div class="flex-none">
+    <div class="flex-none lg:hidden">
       <button class="btn btn-square btn-ghost">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -30,15 +30,21 @@ const navigation = [
         </svg>
       </button>
     </div>
-    <div class="flex-1 px-2 mx-2">
+    <div class="flex-none px-2 mx-2">
       <span class="text-lg font-bold">Title</span>
     </div>
+    <div class="flex-1 px-2 mx-2">
+      <div class="items-stretch hidden lg:flex">
+        <RouterLink to="/" class="btn btn-ghost btn-sm rounded-btn">Home</RouterLink>
+        <RouterLink to="/todo" class="btn btn-ghost btn-sm rounded-btn">Todo</RouterLink>
+      </div>
+    </div>
     <div class="flex-none">
-      <div class="avatar">
+      <a href="#" class="avatar">
         <div class="w-10 h-10 m-1 rounded-full">
           <img src="https://i.pravatar.cc/500?img=32" />
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useHead } from '@vueuse/head'
 import Title from '~/components/pieces/Title.vue'
-import Alert from '~/components/pieces/Alert.vue'
+
 useHead({
   title: 'Todo Title',
   meta: [
@@ -13,13 +13,11 @@ useHead({
 <template>
   <div>
     <Title name="Todo" />
-    # not working
-    <Alert />
   </div>
 </template>
 
 <route lang="yaml">
 meta:
-  layout: default
+  layout: content
   requiresAuth: false
 </route>
