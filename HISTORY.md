@@ -31,6 +31,9 @@ pnpm i daisyui
 
 # form validate
 pnpm i vee-validate@next yup
+
+# store
+pnpm i pinia
 ```
 
 ```diff
