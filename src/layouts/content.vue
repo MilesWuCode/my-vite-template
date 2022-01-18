@@ -6,14 +6,14 @@ import Menu from '~/components/pieces/Menu.vue';
 <template>
   <main>
     <Navbar />
-    <div class="mx-auto max-w-8xl">
-      <div
-        class="hidden lg:block fixed z-20 inset-0 top-[4rem] w-[18rem] overflow-y-auto p-3"
-      >
-        <Menu />
-      </div>
-      <div class="lg:pl-[18rem]">
+    <div class="drawer drawer-mobile">
+      <input id="drawer-menu" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
         <router-view />
+      </div>
+      <div class="drawer-side">
+        <label for="drawer-menu" class="drawer-overlay"></label>
+        <Menu class="p-2 overflow-y-auto bg-base-100 text-base-content w-80 h-[calc(100vh-4rem)]" />
       </div>
     </div>
   </main>
