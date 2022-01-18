@@ -1,33 +1,35 @@
 <script setup lang="ts">
-import { markRaw } from 'vue'
+// import { markRaw } from 'vue'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
 
-// const rule = {
-//   name: yup.string().required().max(20).label('Name'),
-//   email: yup.string().required().email().label('Email Address'),
-//   password: yup.string().required().min(8).label('Password'),
-//   comfirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Password must match').label('Comfirm Password'),
-// }
-
-const schema = markRaw(yup.object({
+const rules = {
   name: yup.string().required().max(20).label('Name'),
   email: yup.string().required().email().label('Email Address'),
   password: yup.string().required().min(8).label('Password'),
-  comfirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Password must match').label('Comfirm Password'),
-}))
+  comfirmPassword: yup.string().required().oneOf([yup.ref('password')], 'Password must match').label('Comfirm Password'),
+}
 
-const { meta, handleSubmit, resetForm, setErrors, isSubmitting } = useForm({
-  validationSchema: schema,
+// const schema = markRaw(yup.object(rules))
+
+const { meta, handleSubmit, resetForm, setErrors, isSubmitting, setFieldValue } = useForm({
+  // validationSchema: schema,
+  // initialValues: {
+  //   email: 'user@email.com',
+  //   password: 'password',
+  // }
 })
 
-const { value: name, errorMessage: nameError } = useField('name', yup.string(), { validateOnValueUpdate: false })
-const { value: email, errorMessage: emailError } = useField('email', yup.string(), { validateOnValueUpdate: false })
-const { value: password, errorMessage: passwordError } = useField('password', yup.string(), { validateOnValueUpdate: false })
-const { value: comfirmPassword, errorMessage: comfirmPasswordError } = useField('comfirmPassword', yup.string(), { validateOnValueUpdate: false })
+const { value: name, errorMessage: nameError } = useField('name', rules.name, { validateOnValueUpdate: false })
+const { value: email, errorMessage: emailError } = useField('email', rules.email, { validateOnValueUpdate: false })
+const { value: password, errorMessage: passwordError } = useField('password', rules.password, { validateOnValueUpdate: false })
+const { value: comfirmPassword, errorMessage: comfirmPasswordError } = useField('comfirmPassword', rules.comfirmPassword, { validateOnValueUpdate: false })
 
 // email.value = 'user@email.com'
 // password.value = 'password'
+
+setFieldValue('email', 'user@email.com')
+// setFieldValue('password', 'password')
 
 const onSubmit = handleSubmit((values, actions) => {
   console.log(JSON.stringify(values, undefined, 2))
@@ -101,7 +103,6 @@ const onReset = () => {
 
         <div class="flex justify-end space-x-2">
           <button
-            @click="onSubmit"
             type="submit"
             class="text-white bg-blue-500 hover:bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:bg-blue-300"
           >Login</button>
