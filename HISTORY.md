@@ -26,9 +26,8 @@ npx tailwindcss init -p
 pnpm i unplugin-icons @iconify/json
 
 # UI
-@headlessui/vue
-# not working
-pnpm i @themesberg/flowbite
+pnpm i @headlessui/vue
+pnpm i daisyui
 
 # form validate
 pnpm i vee-validate@next yup

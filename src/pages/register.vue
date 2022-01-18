@@ -2,6 +2,9 @@
 // import { markRaw } from 'vue'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
+import lang from '~/modules/yup/zhTW.json'
+
+yup.setLocale(lang)
 
 const rules = {
   name: yup.string().required().max(20).label('Name'),
