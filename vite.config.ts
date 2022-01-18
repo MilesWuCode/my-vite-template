@@ -33,7 +33,6 @@ export default defineConfig({
   optimizeDeps: {
     include: [
       '@headlessui/vue',
-      '@themesberg/flowbite',
       '@vueuse/head',
       'vue-router',
       'vue',
