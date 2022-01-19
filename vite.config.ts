@@ -34,8 +34,11 @@ export default defineConfig({
     include: [
       '@headlessui/vue',
       '@vueuse/head',
+      'pinia',
       'vue-router',
       'vue',
+      'vee-validate',
+      'yup',
       // '@vue/apollo-composable',
       // 'vuex',
       // '@vueuse/core',
@@ -44,7 +47,6 @@ export default defineConfig({
       // 'firebase/app',
       // 'firebase/auth',
       // 'graphql-tag',
-      // 'yup',
     ]
   },
 
