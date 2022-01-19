@@ -33,7 +33,7 @@
     <div class="flex-none">
       <a href="#" class="avatar">
         <div class="w-10 h-10 m-1 rounded-full">
-          <img src="https://i.pravatar.cc/500?img=32" />
+          <img src="/original.png" />
         </div>
       </a>
     </div>
