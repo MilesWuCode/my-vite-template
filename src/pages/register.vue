@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Input from '~/components/pieces/Input.vue'
-// import { markRaw } from 'vue'
+import { markRaw } from 'vue'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
 import lang from '~/modules/yup/zhTW.json'
@@ -14,10 +14,10 @@ const rules = {
   comfirmPassword: yup.string().required().oneOf([yup.ref('password')], 'Password must match').label('Comfirm Password'),
 }
 
-// const schema = markRaw(yup.object(rules))
+const schema = markRaw(yup.object(rules))
 
 const { meta, handleSubmit, resetForm, setErrors, isSubmitting, setFieldValue } = useForm({
-  // validationSchema: schema,
+  validationSchema: schema,
   // initialValues: {
   //   email: 'user@email.com',
   //   password: 'password',
@@ -56,75 +56,30 @@ const onReset = () => {
 </script>
 
 <template>
-  <form @submit="onSubmit">
+  <form novalidate @submit="onSubmit">
     <div class="align-middle">
       <div class="max-w-sm p-4 mx-auto my-0 space-y-4">
         <h1 class="text-2xl">Register</h1>
 
-        <Input label="Username" :error="nameError" />
-        <!-- <div class="form-control">
-          <label class="label">
-            <span class="label-text">Username</span>
-          </label>
-          <input
-            type="text"
-            v-model="name"
-            placeholder="name"
-            class="input input-bordered"
-            :class="nameError && 'input-error'"
-          />
-          <label class="label">
-            <span class="label-text-alt text-error">{{ nameError }}</span>
-          </label>
-        </div> -->
+        <Input type="text" v-model="name" :error="nameError" label="Username" placeholder="name" />
 
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Email</span>
-          </label>
-          <input
-            type="text"
-            v-model="email"
-            placeholder="email"
-            class="input input-bordered"
-            :class="emailError && 'input-error'"
-          />
-          <label class="label">
-            <span class="label-text-alt text-error">{{ emailError }}</span>
-          </label>
-        </div>
+        <Input type="email" v-model="email" :error="emailError" label="Email" placeholder="email" />
 
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">password</span>
-          </label>
-          <input
-            type="password"
-            v-model="password"
-            placeholder="password"
-            class="input input-bordered"
-            :class="passwordError && 'input-error'"
-          />
-          <label class="label">
-            <span class="label-text-alt text-error">{{ passwordError }}</span>
-          </label>
-        </div>
+        <Input
+          type="password"
+          v-model="password"
+          :error="passwordError"
+          label="Password"
+          placeholder="password"
+        />
 
-        <div class="form-control">
-          <label class="label">
-            <span class="label-text">Comfirm Password</span>
-          </label>
-          <input
-            type="password"
-            v-model="comfirmPassword"
-            placeholder="comfirm password"
-            class="input input-bordered"
-            :class="comfirmPasswordError && 'input-error'"
-          />
-          <label class="label">
-            <span class="label-text-alt text-error">{{ comfirmPasswordError }}</span>
-          </label>
-        </div>
+        <Input
+          type="password"
+          v-model="comfirmPassword"
+          :error="comfirmPasswordError"
+          label="Comfirm Password"
+          placeholder="comfirm password"
+        />
 
         <div class="justify-end card-actions">
           <button type="submit" class="btn btn-info">Submit</button>
