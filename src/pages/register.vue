@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Input from '~/components/pieces/Input.vue'
 // import { markRaw } from 'vue'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
@@ -60,7 +61,8 @@ const onReset = () => {
       <div class="max-w-sm p-4 mx-auto my-0 space-y-4">
         <h1 class="text-2xl">Register</h1>
 
-        <div class="form-control">
+        <Input label="Username" :error="nameError" />
+        <!-- <div class="form-control">
           <label class="label">
             <span class="label-text">Username</span>
           </label>
@@ -74,7 +76,7 @@ const onReset = () => {
           <label class="label">
             <span class="label-text-alt text-error">{{ nameError }}</span>
           </label>
-        </div>
+        </div> -->
 
         <div class="form-control">
           <label class="label">

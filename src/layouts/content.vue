@@ -1,20 +1,13 @@
 <script setup lang="ts">
-import Navbar from '~/components/pieces/Navbar.vue';
-import Menu from '~/components/pieces/Menu.vue';
+// import XIcon from '~icons/heroicons-solid/x'
+import Navbar from '~/components/pieces/Navbar.vue'
+import Menu from '~/components/pieces/Menu.vue'
 </script>
 
 <template>
   <main>
-    <Navbar />
-    <div class="drawer drawer-mobile">
-      <input id="drawer-menu" type="checkbox" class="drawer-toggle" />
-      <div class="p-2 drawer-content">
-        <router-view />
-      </div>
-      <div class="drawer-side">
-        <label for="drawer-menu" class="drawer-overlay"></label>
-        <Menu class="p-2 overflow-y-auto bg-base-100 text-base-content w-80 h-[calc(100vh-4rem)]" />
-      </div>
-    </div>
+    <Navbar class="fixed top-0 left-0 right-0" />
+    <Menu class="fixed hidden p-2 indent-0 top-16 w-80 lg:block" />
+    <router-view class="p-2 mt-16 lg:ml-80" />
   </main>
 </template>

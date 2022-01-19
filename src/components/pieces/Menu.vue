@@ -1,5 +1,5 @@
 <template>
-  <ul class="menu">
+  <ul class="menu bg-base-100">
     <li class="menu-title">Member</li>
     <li>
       <router-link to="/login">Login</router-link>

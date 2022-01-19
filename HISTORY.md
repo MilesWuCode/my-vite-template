@@ -34,6 +34,15 @@ pnpm i vee-validate@next yup
 
 # store
 pnpm i pinia
+
+# axios
+pnpm i axios
+
+# vueuse
+pnpm i @vueuse/integrations
+
+# cookies
+pnpm i universal-cookie
 ```
 
 ```diff
