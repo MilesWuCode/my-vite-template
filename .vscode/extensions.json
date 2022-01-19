@@ -1,3 +1,12 @@
 {
-  "recommendations": ["johnsoncodehk.volar"]
+  "recommendations": [
+    "antfu.vite",
+    "johnsoncodehk.volar",
+    "antfu.iconify",
+    "dbaeumer.vscode-eslint",
+    "csstools.postcss",
+    "irongeek.vscode-env",
+    "heybourn.headwind",
+    "wix.vscode-import-cost"
+  ]
 }
