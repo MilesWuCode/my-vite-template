@@ -1,17 +1,14 @@
-import Axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import { useCookies } from '@vueuse/integrations/useCookies'
+import router from '~/router'
 
-const instance = Axios.create({
+const instance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
-    'test': '123',
   }
 })
-
-// instance.defaults.headers.common['Content-Type'] = 'application/json'
-// instance.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 
 instance.interceptors.request.use(async (config: AxiosRequestConfig) => {
   const cookies = useCookies(['locale'])
@@ -27,28 +24,24 @@ instance.interceptors.request.use(async (config: AxiosRequestConfig) => {
     config.headers.Authorization = `${password_token_type} ${password_access_token}`
   } else if (!password_access_token && password_refresh_token) {
     // refresh
-    const formdata = new FormData()
-    formdata.append('refresh_token', password_refresh_token)
-    formdata.append('client_secret', import.meta.env.VITE_PASSWORD_GRANT_CLIENT_SECRET)
-    formdata.append('client_id', import.meta.env.VITE_PASSWORD_GRANT_CLIENT_ID)
-    formdata.append('grant_type', 'refresh_token')
-    formdata.append('scope', '*')
+    const formData = new FormData()
+    formData.append('refresh_token', password_refresh_token)
+    formData.append('client_secret', import.meta.env.VITE_PASSWORD_GRANT_CLIENT_SECRET)
+    formData.append('client_id', import.meta.env.VITE_PASSWORD_GRANT_CLIENT_ID)
+    formData.append('grant_type', 'refresh_token')
+    formData.append('scope', '*')
 
     try {
-      const oauthToken = await fetch(`${import.meta.env.VITE_API_URL}/oauth/token`, {
-        method: 'POST',
-        body: formdata,
-      })
+      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/oauth/token`, formData)
 
-      const oauthTokenData = await oauthToken.json()
+      cookies.set('password_token_type', data.token_type, { maxAge: data.expires_in })
+      cookies.set('password_access_token', data.access_token, { maxAge: data.expires_in })
+      cookies.set('password_refresh_token', data.refresh_token, { maxAge: data.expires_in })
 
-      cookies.set('password_token_type', oauthTokenData.token_type, { maxAge: oauthTokenData.expires_in })
-      cookies.set('password_access_token', oauthTokenData.access_token, { maxAge: oauthTokenData.expires_in })
-      cookies.set('password_refresh_token', oauthTokenData.refresh_token, { maxAge: oauthTokenData.expires_in })
-
-      config.headers.Authorization = `${oauthTokenData.token_type} ${oauthTokenData.access_token}`
+      config.headers.Authorization = `${data.token_type} ${data.access_token}`
     } catch (err) {
-      console.log(err)
+      console.log(1)
+      console.error(err)
       cookies.remove('password_token_type')
       cookies.remove('password_access_token')
       cookies.remove('password_refresh_token')
@@ -63,9 +56,9 @@ instance.interceptors.response.use(
     return response
   },
   function (error) {
-    // if (error.response?.status === 422) {
-    //   // ...
-    // }
+    if (error.response?.status === 401) {
+      router.push('/login')
+    }
 
     return Promise.reject(error)
   }
