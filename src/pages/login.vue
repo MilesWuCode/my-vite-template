@@ -49,9 +49,9 @@ const onSubmit = handleSubmit((values, actions) => {
     }).catch((err) => {
       if (err.response?.status == 422) {
         actions.setErrors(err.response.data.errors)
+      } else if (err.response?.status == 400) {
+        actions.setErrors({ email: err.response?.data?.message || 'error' })
       }
-
-      // actions.setErrors({ email: err.response?.data?.message || 'error' })
     })
 })
 
