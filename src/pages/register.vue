@@ -4,14 +4,16 @@ import { markRaw } from 'vue'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
 import lang from '~/modules/yup/zhTW.json'
-
+import axios from '~/modules/axios/instance'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 yup.setLocale(lang)
 
 const rules = {
   name: yup.string().required().max(20).label('Name'),
   email: yup.string().required().email().label('Email Address'),
   password: yup.string().required().min(8).label('Password'),
-  comfirmPassword: yup.string().required().oneOf([yup.ref('password')], 'Password must match').label('Comfirm Password'),
+  comfirm_password: yup.string().required().oneOf([yup.ref('password')], 'Password must match').label('Comfirm Password'),
 }
 
 const schema = markRaw(yup.object(rules))
@@ -27,7 +29,7 @@ const { meta, handleSubmit, resetForm, setErrors, isSubmitting, setFieldValue } 
 const { value: name, errorMessage: nameError } = useField('name', rules.name, { validateOnValueUpdate: false })
 const { value: email, errorMessage: emailError } = useField('email', rules.email, { validateOnValueUpdate: false })
 const { value: password, errorMessage: passwordError } = useField('password', rules.password, { validateOnValueUpdate: false })
-const { value: comfirmPassword, errorMessage: comfirmPasswordError } = useField('comfirmPassword', rules.comfirmPassword, { validateOnValueUpdate: false })
+const { value: comfirmPassword, errorMessage: comfirmPasswordError } = useField('comfirm_password', rules.comfirm_password, { validateOnValueUpdate: false })
 
 // email.value = 'user@email.com'
 // password.value = 'password'
@@ -38,16 +40,18 @@ setFieldValue('email', 'user@email.com')
 const onSubmit = handleSubmit((values, actions) => {
   console.log(JSON.stringify(values, undefined, 2))
 
-  // auth.login(values.email as string, values.password as string)
-  //   .then((data) => {
-  //     console.log(data)
+  axios.post('/api/user/register', values)
+    .then(({ data }) => {
+      console.log(data)
 
-  //     actions.resetForm()
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //     actions.setErrors({ email: err.message })
-  //   })
+      router.push('/login')
+    }).catch((err) => {
+      if (err.response?.status == 422) {
+        console.log(err.response.data.errors)
+
+        actions.setErrors(err.response.data.errors)
+      }
+    })
 })
 
 const onReset = () => {
