@@ -16,7 +16,7 @@ useHead({
 
 const onClick = async () => {
   try {
-    const get = await axios.get('https://pokeapi.co/api/v2/pokemon/ditto')
+    const get = await axios.get('/')
     console.log('status', get.status)
     json.value = get.data
   } catch (err) {

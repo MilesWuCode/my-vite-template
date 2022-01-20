@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { markRaw } from 'vue'
-import { useForm, useField } from 'vee-validate'
+import { useForm, useField, useFormValues } from 'vee-validate'
 import * as yup from 'yup'
+import axios from '~/modules/axios/instance'
+import { useAuth } from '~/modules/auth'
 
 const schema = markRaw(yup.object({
   email: yup.string().required().email().label('Email Address'),
@@ -28,16 +30,25 @@ setFieldValue('password', 'password')
 const onSubmit = handleSubmit((values, actions) => {
   console.log(JSON.stringify(values, undefined, 2))
 
-  // auth.login(values.email as string, values.password as string)
-  //   .then((data) => {
-  //     console.log(data)
+  axios.post('/oauth/token', {
+    grant_type: 'password',
+    client_id: import.meta.env.VITE_PASSWORD_GRANT_CLIENT_ID,
+    client_secret: import.meta.env.VITE_PASSWORD_GRANT_CLIENT_SECRET,
+    username: values.email,
+    password: values.password,
+    scope: '*',
+  })
+    .then(({ data }) => {
+      console.log(data)
 
-  //     actions.resetForm()
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //     actions.setErrors({ email: err.message })
-  //   })
+      const auth = useAuth()
+
+      auth.login(data)
+
+      actions.resetForm()
+    }).catch((err) => {
+      actions.setErrors({ email: err.response?.data?.message || 'error' })
+    })
 })
 
 const onReset = () => {
@@ -84,16 +95,8 @@ const onReset = () => {
         </div>
 
         <div class="justify-end card-actions">
-          <button
-            type="submit"
-            :disabled="!meta.valid || isSubmitting"
-            class="btn btn-info"
-          >Submit</button>
-          <button
-            @click="onReset"
-            type="button"
-            class="btn btn-ghost"
-          >Reset</button>
+          <button type="submit" :disabled="!meta.valid || isSubmitting" class="btn btn-info">Submit</button>
+          <button @click="onReset" type="button" class="btn btn-ghost">Reset</button>
         </div>
       </div>
     </div>

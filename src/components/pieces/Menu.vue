@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import Logout from '~/components/pieces/Logout.vue'
+</script>
+
 <template>
   <ul class="menu bg-base-100">
     <li class="menu-title">Member</li>
@@ -12,6 +16,9 @@
     </li>
     <li>
       <router-link to="/todo">Todo</router-link>
+    </li>
+    <li>
+      <Logout />
     </li>
     <li class="menu-title">Vue</li>
     <li>
