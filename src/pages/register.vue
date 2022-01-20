@@ -6,8 +6,10 @@ import * as yup from 'yup'
 import lang from '~/modules/yup/zhTW.json'
 import axios from '~/modules/axios/instance'
 import { useRouter } from 'vue-router'
-const router = useRouter()
+
 yup.setLocale(lang)
+
+const router = useRouter()
 
 const rules = {
   name: yup.string().required().max(20).label('Name'),
