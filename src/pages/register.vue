@@ -62,8 +62,8 @@ const onReset = () => {
 </script>
 
 <template>
-  <form novalidate @submit="onSubmit">
-    <div class="align-middle">
+  <div>
+    <form novalidate @submit="onSubmit">
       <div class="max-w-sm p-4 mx-auto my-0 space-y-4">
         <h1 class="text-2xl">Register</h1>
 
@@ -92,8 +92,8 @@ const onReset = () => {
           <button @click="onReset" type="button" class="btn btn-ghost">Reset</button>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </template>
 
 <route lang="yaml">

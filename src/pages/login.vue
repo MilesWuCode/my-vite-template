@@ -61,8 +61,8 @@ const onReset = () => {
 </script>
 
 <template>
-  <form @submit="onSubmit">
-    <div class="align-middle">
+  <div>
+    <form @submit="onSubmit">
       <div class="max-w-sm p-4 mx-auto my-0 space-y-4">
         <h1 class="text-2xl">Login</h1>
 
@@ -103,8 +103,14 @@ const onReset = () => {
           <button @click="onReset" type="button" class="btn btn-ghost">Reset</button>
         </div>
       </div>
+    </form>
+
+    <div class="flex justify-center space-x-2">
+      <button class="btn btn-outline">Google</button>
+      <button class="btn btn-outline">Facebook</button>
+      <button class="btn btn-outline">Apple</button>
     </div>
-  </form>
+  </div>
 </template>
 
 <route lang="yaml">
