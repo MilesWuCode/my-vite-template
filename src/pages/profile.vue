@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import Input from '~/components/pieces/Input.vue'
-import { markRaw } from 'vue'
+import { markRaw, onMounted, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
 import lang from '~/modules/yup/zhTW.json'
-// import axios from '~/modules/axios/instance'
+import axios from '~/modules/axios/instance'
 
 const router = useRouter()
 
@@ -24,6 +24,21 @@ const { meta, handleSubmit, resetForm, setErrors, isSubmitting, setFieldValue } 
 })
 
 const { value: name, errorMessage: nameError } = useField<string>('name')
+
+const getUser = async () => {
+  try {
+    const { data } = await axios.get('/api/user')
+    return data.data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+onMounted(async () => {
+  const user = await getUser()
+
+  setFieldValue('name', user.name)
+})
 
 const onSubmit = handleSubmit((values, actions) => {
   console.log(JSON.stringify(values, undefined, 2))

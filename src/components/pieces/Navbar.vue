@@ -1,5 +1,6 @@
 <script setup lang="ts">
-
+import {useAuthStore } from '~/stores/auth'
+const auth = useAuthStore()
 </script>
 
 <template>
@@ -30,7 +31,7 @@
         <RouterLink to="/todo" class="btn btn-ghost btn-sm rounded-btn">Todo</RouterLink>
       </div>
     </div>
-    <div class="flex-none">
+    <div class="flex-none" v-if="auth.loggedIn">
       <a href="#" class="avatar">
         <div class="w-10 h-10 m-1 rounded-full">
           <img src="/original.png" />
