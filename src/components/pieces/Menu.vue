@@ -6,13 +6,16 @@ import Logout from '~/components/pieces/Logout.vue'
   <ul class="menu bg-base-100">
     <li class="menu-title">Member</li>
     <li>
-      <router-link to="/login">Login</router-link>
-    </li>
-    <li>
       <router-link to="/register">Register</router-link>
     </li>
     <li>
+      <router-link to="/login">Login</router-link>
+    </li>
+    <li>
       <router-link to="/profile">Profile</router-link>
+    </li>
+    <li>
+      <router-link to="/change-password">Change Password</router-link>
     </li>
     <li>
       <router-link to="/todo">Todo</router-link>
