@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import Title from '~/components/pieces/Title.vue'
+</script>
+
 <template>
   <div>
     <Title name="Profile" />
