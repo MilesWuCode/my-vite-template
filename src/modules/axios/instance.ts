@@ -23,16 +23,14 @@ instance.interceptors.request.use(async (config: AxiosRequestConfig) => {
   if (password_access_token) {
     config.headers.Authorization = `${password_token_type} ${password_access_token}`
   } else if (!password_access_token && password_refresh_token) {
-    // refresh
-    const formData = new FormData()
-    formData.append('refresh_token', password_refresh_token)
-    formData.append('client_secret', import.meta.env.VITE_PASSWORD_GRANT_CLIENT_SECRET)
-    formData.append('client_id', import.meta.env.VITE_PASSWORD_GRANT_CLIENT_ID)
-    formData.append('grant_type', 'refresh_token')
-    formData.append('scope', '*')
-
     try {
-      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/oauth/token`, formData)
+      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/oauth/token`, {
+        refresh_token: password_refresh_token,
+        client_secret: import.meta.env.VITE_PASSWORD_GRANT_CLIENT_SECRET,
+        client_id: import.meta.env.VITE_PASSWORD_GRANT_CLIENT_ID,
+        grant_type: 'refresh_token',
+        scope: '*',
+      })
 
       cookies.set('password_token_type', data.token_type, { maxAge: data.expires_in })
       cookies.set('password_access_token', data.access_token, { maxAge: data.expires_in })
@@ -40,7 +38,6 @@ instance.interceptors.request.use(async (config: AxiosRequestConfig) => {
 
       config.headers.Authorization = `${data.token_type} ${data.access_token}`
     } catch (err) {
-      console.log(1)
       console.error(err)
       cookies.remove('password_token_type')
       cookies.remove('password_access_token')

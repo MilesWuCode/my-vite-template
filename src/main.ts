@@ -6,11 +6,6 @@ import router from '~/router'
 import { createPinia } from 'pinia'
 import {createAuth} from '~/modules/auth'
 
-// const auth = createAuth({
-//   router,
-//   // store,
-// })
-
 createApp(App)
   .use(createHead())
   .use(router)

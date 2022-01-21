@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import Input from '~/components/pieces/Input.vue'
 import { markRaw } from 'vue'
+import { useRouter } from 'vue-router'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
 import lang from '~/modules/yup/zhTW.json'
 import axios from '~/modules/axios/instance'
-import { useRouter } from 'vue-router'
-
-yup.setLocale(lang)
 
 const router = useRouter()
+
+yup.setLocale(lang)
 
 const rules = {
   name: yup.string().required().max(20).label('Name'),
