@@ -4,6 +4,8 @@ import { useForm, useField, useFormValues } from 'vee-validate'
 import * as yup from 'yup'
 import axios from '~/modules/axios/instance'
 import { useAuth } from '~/modules/auth'
+import GoogleSingIn from '~/components/login/GoogleSingIn.vue'
+import SingOut from '~/components/login/SingOut.vue'
 
 const schema = markRaw(yup.object({
   email: yup.string().required().email().label('Email Address'),
@@ -106,9 +108,10 @@ const onReset = () => {
     </form>
 
     <div class="flex justify-center space-x-2">
-      <button class="btn btn-outline">Google</button>
+      <GoogleSingIn />
       <button class="btn btn-outline">Facebook</button>
       <button class="btn btn-outline">Apple</button>
+      <SingOut />
     </div>
   </div>
 </template>

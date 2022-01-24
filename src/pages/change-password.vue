@@ -64,5 +64,5 @@ const onReset = () => {
 <route lang="yaml">
 meta:
   layout: content
-  requiresAuth: false
+  requiresAuth: true
 </route>

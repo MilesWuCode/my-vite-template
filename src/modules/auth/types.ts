@@ -3,8 +3,9 @@ import { Router } from 'vue-router'
 
 export interface Auth {
   init: () => void
-  login(data: any): Promise<void>
-  fetchUser: () => Promise<void>
+  login(data: any): void
+  fetchUser: () => void
+  loginWithSocialite(driver: string, token: string): void
   logout: () => void
 }
 

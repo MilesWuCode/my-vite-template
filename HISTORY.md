@@ -39,10 +39,15 @@ pnpm i pinia
 pnpm i axios
 
 # vueuse
+pnpm i @vueuse/core
 pnpm i @vueuse/integrations
 
 # cookies
 pnpm i universal-cookie
+
+# firebase
+pnpm i @vueuse/firebase
+pnpm i firebase
 ```
 
 ```diff

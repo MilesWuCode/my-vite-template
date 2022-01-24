@@ -49,10 +49,17 @@ function setupAuth({ router }: AuthOptions): Auth {
   async function login(data: any) {
     cookies.set('password_token_type', data.token_type, { maxAge: data.expires_in })
     cookies.set('password_access_token', data.access_token, { maxAge: data.expires_in })
-    cookies.set('password_refresh_token', data.refresh_token, { maxAge: data.expires_in })
+
+    if (data?.refresh_token) {
+      cookies.set('password_refresh_token', data.refresh_token, { maxAge: data.expires_in })
+    }
 
     await fetchUser()
 
+    redirect()
+  }
+
+  function redirect() {
     const redirect = cookies.get('auth_redirect') || ''
 
     router.push(redirect)
@@ -73,6 +80,16 @@ function setupAuth({ router }: AuthOptions): Auth {
       .catch(err => {
         console.log(err)
         logout()
+      })
+  }
+
+  function loginWithSocialite(driver: string, token: string) {
+    axios.post('/api/socialite/singin', { driver, token })
+      .then(({ data }) => {
+        login(data)
+      })
+      .catch(err => {
+        console.log(err)
       })
   }
 
@@ -97,6 +114,7 @@ function setupAuth({ router }: AuthOptions): Auth {
     init,
     login,
     fetchUser,
+    loginWithSocialite,
     logout,
   }
 }
