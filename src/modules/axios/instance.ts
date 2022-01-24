@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { useCookies } from '@vueuse/integrations/useCookies'
-import router from '~/router'
+import { useAuth } from '~/modules/auth'
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -39,6 +39,7 @@ instance.interceptors.request.use(async (config: AxiosRequestConfig) => {
       config.headers.Authorization = `${data.token_type} ${data.access_token}`
     } catch (err) {
       console.error(err)
+
       cookies.remove('password_token_type')
       cookies.remove('password_access_token')
       cookies.remove('password_refresh_token')
@@ -54,7 +55,9 @@ instance.interceptors.response.use(
   },
   function (error) {
     if (error.response?.status === 401) {
-      router.push('/login')
+      const auth = useAuth()
+
+      auth.logout('/login')
     }
 
     return Promise.reject(error)

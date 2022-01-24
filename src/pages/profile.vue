@@ -42,6 +42,18 @@ onMounted(async () => {
 
 const onSubmit = handleSubmit((values, actions) => {
   console.log(JSON.stringify(values, undefined, 2))
+
+  axios.post('/api/user', values)
+    .then(({ data }) => {
+      console.log(data)
+
+    }).catch((err) => {
+      if (err.response?.status == 422) {
+        console.log(err.response.data.errors)
+
+        actions.setErrors(err.response.data.errors)
+      }
+    })
 })
 
 const onReset = () => {

@@ -48,6 +48,7 @@ function setupAuth({ router }: AuthOptions): Auth {
 
   async function login(data: any) {
     cookies.set('password_token_type', data.token_type, { maxAge: data.expires_in })
+
     cookies.set('password_access_token', data.access_token, { maxAge: data.expires_in })
 
     if (data?.refresh_token) {
@@ -93,7 +94,7 @@ function setupAuth({ router }: AuthOptions): Auth {
       })
   }
 
-  function logout() {
+  function logout(redirect: string = '/') {
     // store
     const authStore = useAuthStore()
 
@@ -107,7 +108,7 @@ function setupAuth({ router }: AuthOptions): Auth {
 
     authStore.setUser(null)
 
-    router.push('/')
+    router.push(redirect)
   }
 
   return {
