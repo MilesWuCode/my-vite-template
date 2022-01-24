@@ -1,6 +1,6 @@
 import { Auth, AuthOptions } from './types'
 import { App } from 'vue'
-import { RouteLocationRaw, RouteLocationNormalized } from 'vue-router'
+import { RouteLocationRaw, RouteLocationNormalized, RouteRecordName } from 'vue-router'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import axios from '~/modules/axios/instance'
 import { useAuthStore } from '~/stores/auth'
@@ -10,35 +10,30 @@ const cookies = useCookies(['locale'])
 export let authInstance: Auth | undefined = undefined
 
 function setupAuth({ router }: AuthOptions): Auth {
-  async function init() {
-    // 先檢查並抓取用戶資料存到store
-    await fetchUser()
-
+  function init() {
     router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized): Promise<boolean | RouteLocationRaw> => {
       // store
       const authStore = useAuthStore()
 
-      // 當進入登入頁時,記錄進入前的網址到cookie
-      if (to.name !== 'login') {
+      if (!authStore.loggedIn) {
+        // 抓取用戶資料存到store
+        await fetchUser()
+      }
+
+      // 例外的router-name
+      if (typeof to.name === 'string' && !['login', 'register'].includes(to.name)) {
+        // 記錄網址到cookie
         cookies.set('auth_redirect', to.fullPath)
       }
 
-      // 進入登入頁
-      if (to.name === 'login') {
-        // 已登入不離開
-        if (authStore.loggedIn) {
-          return from.fullPath
-        }
-        // 未登入
-        return true
+      // 已登入不該進入
+      if (authStore.loggedIn && typeof to.name === 'string' && ['login', 'register'].includes(to.name)) {
+        return from.fullPath || '/'
       }
 
-      // 進入需要登入的頁面
-      if (to.meta.requiresAuth) {
-        // 未登入進登入頁
-        if (!authStore.loggedIn) {
-          return 'login'
-        }
+      // 未登入回到登入頁
+      if (to.meta.requiresAuth && !authStore.loggedIn) {
+        return 'login'
       }
 
       // 最後
@@ -83,7 +78,6 @@ function setupAuth({ router }: AuthOptions): Auth {
       })
       .catch(err => {
         console.log(err)
-        logout()
       })
   }
 
