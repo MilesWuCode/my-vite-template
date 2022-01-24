@@ -5,6 +5,7 @@ import * as yup from 'yup'
 import axios from '~/modules/axios/instance'
 import { useAuth } from '~/modules/auth'
 import GoogleSingIn from '~/components/login/GoogleSingIn.vue'
+import FacebookSingIn from '~/components/login/FacebookSingIn.vue'
 import SingOut from '~/components/login/SingOut.vue'
 
 const schema = markRaw(yup.object({
@@ -109,7 +110,7 @@ const onReset = () => {
 
     <div class="flex justify-center space-x-2">
       <GoogleSingIn />
-      <button class="btn btn-outline">Facebook</button>
+      <FacebookSingIn />
       <button class="btn btn-outline">Apple</button>
       <SingOut />
     </div>

@@ -2,7 +2,7 @@
 import { onMounted } from 'vue'
 
 import { firebaseApp } from '~/modules/firebase/firebase'
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, FacebookAuthProvider, signInWithRedirect, getRedirectResult } from 'firebase/auth'
 import * as firebase from '@vueuse/firebase/useAuth'
 
 import { useAuth } from '~/modules/auth'
@@ -42,7 +42,7 @@ if (currentUser) {
 
 // 換頁登入
 const signInRedirect = () => {
-  let provider = new GoogleAuthProvider()
+  let provider = new FacebookAuthProvider()
 
   provider.addScope('email')
 
@@ -54,15 +54,17 @@ const signInRedirect = () => {
   signInWithRedirect(firebaseAuth, provider)
 }
 
-// 換頁登入後拿資料
+// 換頁登入後拿user資料
 getRedirectResult(firebaseAuth)
   .then((result: any): void => {
-    if (result.providerId !== 'google.com') {
+    console.log(result)
+
+    if (result.providerId !== 'facebook.com') {
       return
     }
 
     // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential: any = GoogleAuthProvider.credentialFromResult(result);
+    const credential: any = FacebookAuthProvider.credentialFromResult(result);
 
     // token
     const token = credential.accessToken;
@@ -72,7 +74,7 @@ getRedirectResult(firebaseAuth)
 
     console.log('getRedirectResult', result, user, credential, token)
 
-    auth.loginWithSocialite('google', token)
+    auth.loginWithSocialite('facebook', token)
   }).catch((error) => {
     // Handle Errors here.
     const errorCode = error.code;
@@ -80,7 +82,7 @@ getRedirectResult(firebaseAuth)
     // The email of the user's account used.
     const email = error.email;
     // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
+    const credential = FacebookAuthProvider.credentialFromError(error);
     // ...
     console.log(errorCode, errorMessage, email, credential)
   })
@@ -91,5 +93,5 @@ onMounted(async () => {
 </script>
 
 <template>
-  <button v-if="!authStore.loggedIn" @click="signInRedirect" class="btn btn-outline">Google</button>
+  <button v-if="!authStore.loggedIn" @click="signInRedirect" class="btn btn-outline">Facebook</button>
 </template>
