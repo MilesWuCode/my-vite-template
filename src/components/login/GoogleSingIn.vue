@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
+
 import { firebaseApp } from '~/modules/firebase/firebase'
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from 'firebase/auth'
 import * as firebase from '@vueuse/firebase/useAuth'
+
 import { useAuth } from '~/modules/auth'
+import { useAuthStore } from '~/stores/auth'
+
 const auth = useAuth()
+const authStore = useAuthStore()
 
 const firebaseAuth = getAuth(firebaseApp)
 const { isAuthenticated, user: authUser } = firebase.useAuth(firebaseAuth)
-
-// User
-console.log('useAuth', authUser)
+console.log('useAuth', isAuthenticated, authUser)
 
 // 觀查變化
 onAuthStateChanged(firebaseAuth, (user): void => {
@@ -77,14 +80,8 @@ getRedirectResult(firebaseAuth)
 onMounted(async () => {
   console.log('onMounted')
 })
-
-
-const test = () => {
-  console.log(auth)
-}
 </script>
 
 <template>
-  <button v-if="!isAuthenticated" @click="signInRedirect" class="btn btn-outline">Google</button>
-  <button @click="test" class="btn btn-outline">test</button>
+  <button v-if="!authStore.loggedIn" @click="signInRedirect" class="btn btn-outline">Google</button>
 </template>
