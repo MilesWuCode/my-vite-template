@@ -1,4 +1,4 @@
-import fs from 'fs'
+// import fs from 'fs'
 import path from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -52,9 +52,9 @@ export default defineConfig({
 
   server: {
     port: 3000,
-    https: {
-      key: fs.readFileSync(`${__dirname}/src/assets/localhost-key.pem`),
-      cert: fs.readFileSync(`${__dirname}/src/assets/localhost.pem`),
-    },
+    // https: {
+    //   key: fs.readFileSync(`${__dirname}/src/assets/localhost-key.pem`),
+    //   cert: fs.readFileSync(`${__dirname}/src/assets/localhost.pem`),
+    // },
   },
 })

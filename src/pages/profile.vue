@@ -13,6 +13,7 @@ yup.setLocale(lang)
 
 const schema = markRaw(yup.object({
   name: yup.string().required().max(20).label('Name'),
+  birthday: yup.date().required().label('Birthday'),
 }))
 
 const { meta, handleSubmit, resetForm, setErrors, isSubmitting, setFieldValue } = useForm({
@@ -24,6 +25,7 @@ const { meta, handleSubmit, resetForm, setErrors, isSubmitting, setFieldValue } 
 })
 
 const { value: name, errorMessage: nameError } = useField<string>('name')
+const { value: birthday, errorMessage: birthdayError } = useField<string>('birthday')
 
 const getUser = async () => {
   try {
@@ -43,17 +45,17 @@ onMounted(async () => {
 const onSubmit = handleSubmit((values, actions) => {
   console.log(JSON.stringify(values, undefined, 2))
 
-  axios.post('/api/user', values)
-    .then(({ data }) => {
-      console.log(data)
+  // axios.post('/api/user', values)
+  //   .then(({ data }) => {
+  //     console.log(data)
 
-    }).catch((err) => {
-      if (err.response?.status == 422) {
-        console.log(err.response.data.errors)
+  //   }).catch((err) => {
+  //     if (err.response?.status == 422) {
+  //       console.log(err.response.data.errors)
 
-        actions.setErrors(err.response.data.errors)
-      }
-    })
+  //       actions.setErrors(err.response.data.errors)
+  //     }
+  //   })
 })
 
 const onReset = () => {
@@ -68,6 +70,8 @@ const onReset = () => {
         <h1 class="text-2xl">Profile</h1>
 
         <Input type="text" v-model="name" :error="nameError" label="Username" placeholder="name" />
+        
+        <Input type="date" v-model="birthday" :error="birthdayError" label="Birthday" placeholder="Birthday" />
 
         <div class="justify-end card-actions">
           <button type="submit" :disabled="!meta.valid || isSubmitting" class="btn btn-info">Submit</button>

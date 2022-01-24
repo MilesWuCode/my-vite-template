@@ -5,7 +5,8 @@
     "defined": "${path} must be defined",
     "notNull": "${path} cannot be null",
     "oneOf": "${path} must be one of the following values: ${values}",
-    "notOneOf": "${path} must not be one of the following values: ${values}"
+    "notOneOf": "${path} must not be one of the following values: ${values}",
+    "notType": "Must be a ${type} type"
   },
   "string": {
     "length": "${path} must be exactly ${length} characters",
