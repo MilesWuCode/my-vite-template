@@ -34,7 +34,13 @@ instance.interceptors.request.use(async (config: AxiosRequestConfig) => {
 
       cookies.set('password_token_type', data.token_type, { maxAge: data.expires_in })
       cookies.set('password_access_token', data.access_token, { maxAge: data.expires_in })
-      cookies.set('password_refresh_token', data.refresh_token, { maxAge: data.expires_in })
+
+      // * only password
+      if (data?.refresh_token) {
+        // * example, maxAge
+        // * 30 days
+        cookies.set('password_refresh_token', data.refresh_token, { maxAge: 86400 * 30 })
+      }
 
       config.headers.Authorization = `${data.token_type} ${data.access_token}`
     } catch (err) {

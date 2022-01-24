@@ -51,8 +51,11 @@ function setupAuth({ router }: AuthOptions): Auth {
 
     cookies.set('password_access_token', data.access_token, { maxAge: data.expires_in })
 
+    // * only password
     if (data?.refresh_token) {
-      cookies.set('password_refresh_token', data.refresh_token, { maxAge: data.expires_in })
+      // * example, maxAge
+      // * 30 days
+      cookies.set('password_refresh_token', data.refresh_token, { maxAge: 86400 * 30 })
     }
 
     await fetchUser()
