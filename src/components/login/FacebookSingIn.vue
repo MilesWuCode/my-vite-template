@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-
 import { firebaseApp } from '~/modules/firebase/firebase'
 import { getAuth, onAuthStateChanged, FacebookAuthProvider, signInWithRedirect, getRedirectResult } from 'firebase/auth'
 import { useAuth as useFirebaseAuth } from '@vueuse/firebase/useAuth'
@@ -55,41 +53,37 @@ const signInRedirect = () => {
 }
 
 // 換頁登入後拿user資料
-getRedirectResult(firebaseAuth)
-  .then((result: any): void => {
-    console.log(result)
+// getRedirectResult(firebaseAuth)
+//   .then((result: any): void => {
+//     console.log(result)
 
-    if (result.providerId !== 'facebook.com') {
-      return
-    }
+//     if (result.providerId !== 'facebook.com') {
+//       return
+//     }
 
-    // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential: any = FacebookAuthProvider.credentialFromResult(result);
+//     // This gives you a Google Access Token. You can use it to access Google APIs.
+//     const credential: any = FacebookAuthProvider.credentialFromResult(result);
 
-    // token
-    const token = credential.accessToken;
+//     // token
+//     const token = credential.accessToken;
 
-    // The signed-in user info.
-    const user = result.user;
+//     // The signed-in user info.
+//     const user = result.user;
 
-    console.log('getRedirectResult', result, user, credential, token)
+//     console.log('getRedirectResult', result, user, credential, token)
 
-    auth.loginWithSocialite('facebook', token)
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = FacebookAuthProvider.credentialFromError(error);
-    // ...
-    console.log(errorCode, errorMessage, email, credential)
-  })
-
-onMounted(async () => {
-  console.log('onMounted')
-})
+//     auth.loginWithSocialite('facebook', token)
+//   }).catch((error) => {
+//     // Handle Errors here.
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // The email of the user's account used.
+//     const email = error.email;
+//     // The AuthCredential type that was used.
+//     const credential = FacebookAuthProvider.credentialFromError(error);
+//     // ...
+//     console.log(errorCode, errorMessage, email, credential)
+//   })
 </script>
 
 <template>

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { markRaw } from 'vue'
-import { useForm, useField, useFormValues } from 'vee-validate'
+import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
 import axios from '~/modules/axios/instance'
 import { useAuth } from '~/modules/auth'
+import SingInWrapper from '~/components/login/SingInWrapper.vue'
 import GoogleSingIn from '~/components/login/GoogleSingIn.vue'
 import FacebookSingIn from '~/components/login/FacebookSingIn.vue'
 import SingOut from '~/components/login/SingOut.vue'
@@ -108,12 +109,12 @@ const onReset = () => {
       </div>
     </form>
 
-    <div class="flex justify-center space-x-2">
+    <SingInWrapper class="flex justify-center space-x-2">
       <GoogleSingIn />
       <FacebookSingIn />
       <button class="btn btn-outline">Apple</button>
       <SingOut />
-    </div>
+    </SingInWrapper>
   </div>
 </template>
 

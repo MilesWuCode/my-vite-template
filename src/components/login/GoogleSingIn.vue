@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
 // firebase
 import { firebaseApp } from '~/modules/firebase/firebase'
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from 'firebase/auth'
@@ -56,39 +55,35 @@ const signInRedirect = () => {
 }
 
 // 換頁登入後拿資料
-getRedirectResult(firebaseAuth)
-  .then((result: any): void => {
-    if (result.providerId !== 'google.com') {
-      return
-    }
+// getRedirectResult(firebaseAuth)
+//   .then((result: any): void => {
+//     if (result.providerId !== 'google.com') {
+//       return
+//     }
 
-    // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential: any = GoogleAuthProvider.credentialFromResult(result);
+//     // This gives you a Google Access Token. You can use it to access Google APIs.
+//     const credential: any = GoogleAuthProvider.credentialFromResult(result);
 
-    // token
-    const token = credential.accessToken;
+//     // token
+//     const token = credential.accessToken;
 
-    // The signed-in user info.
-    const user = result.user;
+//     // The signed-in user info.
+//     const user = result.user;
 
-    console.log('getRedirectResult', result, user, credential, token)
+//     console.log('getRedirectResult', result, user, credential, token)
 
-    auth.loginWithSocialite('google', token)
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-    console.log(errorCode, errorMessage, email, credential)
-  })
-
-onMounted(async () => {
-  console.log('onMounted')
-})
+//     auth.loginWithSocialite('google', token)
+//   }).catch((error) => {
+//     // Handle Errors here.
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // The email of the user's account used.
+//     const email = error.email;
+//     // The AuthCredential type that was used.
+//     const credential = GoogleAuthProvider.credentialFromError(error);
+//     // ...
+//     console.log(errorCode, errorMessage, email, credential)
+//   })
 </script>
 
 <template>
