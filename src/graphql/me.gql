@@ -1,0 +1,15 @@
+fragment user on User {
+  id
+  name
+  email
+  email_verified_at
+  avatar_url
+  created_at
+  updated_at
+}
+
+query me {
+  me {
+    ...user
+  }
+}

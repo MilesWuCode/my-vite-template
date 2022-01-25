@@ -1,0 +1,39 @@
+fragment todo on Todo {
+  id
+  content
+  active
+  created_at
+  updated_at
+}
+
+query myTodo($id: ID!) {
+  myTodo(id: $id) {
+    ...todo
+  }
+}
+
+query myTodos($first: Int!, $page: Int) {
+  myTodos(first: $first, page: $page) {
+    data {
+      ...todo
+    }
+  }
+}
+
+mutation createTodo($content: String!) {
+  createTodo(content: $content) {
+    ...todo
+  }
+}
+
+mutation updateTodo($id: ID!, $content: String) {
+  updateTodo(id: $id, content: $content) {
+    ...todo
+  }
+}
+
+mutation deleteTodo($id: ID!) {
+  deleteTodo(id: $id) {
+    ...todo
+  }
+}

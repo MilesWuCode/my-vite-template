@@ -1,0 +1,71 @@
+fragment blog on Blog {
+  id
+  title
+  body
+  status
+  like_count
+  dislike_count
+  publish_at
+  created_at
+  updated_at
+  user {
+    id
+    name
+  }
+  tag {
+    data {
+      id
+      name
+    }
+  }
+  gallery {
+    data {
+      id
+      url
+    }
+  }
+}
+
+query blogs($first: Int!, $page: Int) {
+  blogs(first: $first, page: $page)
+    @connection(key: "blogs", filter: ["page"]) {
+    data {
+      ...blog
+    }
+    paginatorInfo {
+      currentPage
+      lastPage
+    }
+  }
+}
+
+query myBlogs($first: Int!, $page: Int) {
+  myBlogs(first: $first, page: $page)
+    @connection(key: "myBlogs", filter: ["page"]) {
+    data {
+      ...blog
+    }
+    paginatorInfo {
+      currentPage
+      lastPage
+    }
+  }
+}
+
+# query blogs($first: Int!, $after: String) {
+#   blogs(first: $first, after:$after) {
+#     edges {
+#       cursor
+#       node {
+#         id
+#         title
+#       }
+#     }
+#     pageInfo {
+#       hasPreviousPage
+#       hasNextPage
+#       currentPage
+#       lastPage
+#     }
+#   }
+# }

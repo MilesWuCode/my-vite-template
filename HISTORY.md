@@ -23,14 +23,16 @@ pnpm i tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 
 # ICONS, autoInstall: true 自動安裝來源
-pnpm i unplugin-icons @iconify/json
+pnpm i unplugin-icons
+pnpm i @iconify/json
 
 # UI
 pnpm i @headlessui/vue
 pnpm i daisyui
 
 # form validate
-pnpm i vee-validate@next yup
+pnpm i vee-validate@next
+pnpm i yup
 
 # store
 pnpm i pinia
@@ -51,6 +53,26 @@ pnpm i firebase
 
 # toast
 pnpm i vue-toastification@next
+
+# graphql
+pnpm i graphql
+pnpm i graphql-tag
+pnpm i @apollo/client
+
+# vue-apollo
+# composable api
+pnpm i @vue/apollo-composable
+# components
+pnpm i @vue/apollo-components
+
+# graphql-codegen
+pnpm i @graphql-codegen/cli
+pnpm i @graphql-codegen/typescript
+pnpm i @graphql-codegen/typescript-operations
+pnpm i @graphql-codegen/typescript-vue-apollo
+
+# graphql-codegen init
+pnpm graphql-codegen init
 ```
 
 ```diff
