@@ -6,7 +6,9 @@ import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
 import lang from '~/modules/yup/zhTW.json'
 import axios from '~/modules/axios/instance'
+import { useToast } from 'vue-toastification'
 
+const toast = useToast()
 const router = useRouter()
 
 yup.setLocale(lang)
@@ -45,17 +47,18 @@ onMounted(async () => {
 const onSubmit = handleSubmit((values, actions) => {
   console.log(JSON.stringify(values, undefined, 2))
 
-  // axios.post('/api/user', values)
-  //   .then(({ data }) => {
-  //     console.log(data)
+  axios.post('/api/user', values)
+    .then(({ data }) => {
+      console.log(data)
 
-  //   }).catch((err) => {
-  //     if (err.response?.status == 422) {
-  //       console.log(err.response.data.errors)
+      toast.success('Success')
+    }).catch((err) => {
+      if (err.response?.status == 422) {
+        console.log(err.response.data.errors)
 
-  //       actions.setErrors(err.response.data.errors)
-  //     }
-  //   })
+        actions.setErrors(err.response.data.errors)
+      }
+    })
 })
 
 const onReset = () => {
@@ -70,8 +73,14 @@ const onReset = () => {
         <h1 class="text-2xl">Profile</h1>
 
         <Input type="text" v-model="name" :error="nameError" label="Username" placeholder="name" />
-        
-        <Input type="date" v-model="birthday" :error="birthdayError" label="Birthday" placeholder="Birthday" />
+
+        <Input
+          type="date"
+          v-model="birthday"
+          :error="birthdayError"
+          label="Birthday"
+          placeholder="Birthday"
+        />
 
         <div class="justify-end card-actions">
           <button type="submit" :disabled="!meta.valid || isSubmitting" class="btn btn-info">Submit</button>

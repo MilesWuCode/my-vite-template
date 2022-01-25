@@ -48,6 +48,9 @@ pnpm i universal-cookie
 # firebase
 pnpm i @vueuse/firebase
 pnpm i firebase
+
+# toast
+pnpm i vue-toastification@next
 ```
 
 ```diff
