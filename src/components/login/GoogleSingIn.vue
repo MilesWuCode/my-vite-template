@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-
+// firebase
 import { firebaseApp } from '~/modules/firebase/firebase'
 import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from 'firebase/auth'
 import * as firebase from '@vueuse/firebase/useAuth'
-
+// auth
 import { useAuth } from '~/modules/auth'
 import { useAuthStore } from '~/stores/auth'
+
+const firebaseAuth = getAuth(firebaseApp)
+const { isAuthenticated, user: authUser } = firebase.useAuth(firebaseAuth)
 
 const auth = useAuth()
 const authStore = useAuthStore()
 
-const firebaseAuth = getAuth(firebaseApp)
-const { isAuthenticated, user: authUser } = firebase.useAuth(firebaseAuth)
 console.log('useAuth', isAuthenticated, authUser)
 
 // 觀查變化

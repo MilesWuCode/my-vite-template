@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { useAuth } from '~/modules/auth'
-const auth = useAuth()
-
 // firebase
 import { firebaseApp } from '~/modules/firebase/firebase'
 import { getAuth, signOut } from 'firebase/auth'
 import * as firebase from '@vueuse/firebase/useAuth'
+// auth
+import { useAuth } from '~/modules/auth'
 
-// firebase
 const firebaseAuth = getAuth(firebaseApp)
 const { isAuthenticated } = firebase.useAuth(firebaseAuth)
+const auth = useAuth()
 
 const onClick = () => {
   if (isAuthenticated.value) {

@@ -30,6 +30,12 @@ export default defineConfig({
     }),
   ],
 
+  // build: {
+  //   cssCodeSplit: true,
+  //   sourcemap: true,
+  //   // chunkSizeWarningLimit: 500,
+  // },
+
   optimizeDeps: {
     include: [
       '@headlessui/vue',
