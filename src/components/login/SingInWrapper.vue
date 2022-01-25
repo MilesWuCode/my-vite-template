@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // firebase
 import { firebaseApp } from '~/modules/firebase/firebase'
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, FacebookAuthProvider, getRedirectResult } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, FacebookAuthProvider, getRedirectResult, OAuthCredential, UserCredential } from 'firebase/auth'
 
 // auth
 import { useAuth } from '~/modules/auth'
@@ -26,15 +26,16 @@ onAuthStateChanged(firebaseAuth, (user): void => {
 
 // 換頁登入後拿資料
 getRedirectResult(firebaseAuth)
-  .then((result: any): void => {
-    let credential: any
+  .then((result: UserCredential | null): void => {
+    let credential: OAuthCredential | null
+
     let driver: string
 
-    if (result.providerId === 'google.com') {
+    if (result?.providerId === 'google.com') {
       credential = GoogleAuthProvider.credentialFromResult(result)
 
       driver = 'google'
-    } else if (result.providerId === 'facebook.com') {
+    } else if (result?.providerId === 'facebook.com') {
       credential = FacebookAuthProvider.credentialFromResult(result)
 
       driver = 'facebook'
@@ -42,13 +43,15 @@ getRedirectResult(firebaseAuth)
       return
     }
 
-    let token = credential.accessToken;
+    let token = credential?.accessToken
 
-    let user = result.user;
+    let user = result.user
+
+    if (token && user) {
+      auth.loginWithSocialite(driver, token)
+    }
 
     console.log('getRedirectResult', result, user, credential, token)
-
-    auth.loginWithSocialite(driver, token)
   }).catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
