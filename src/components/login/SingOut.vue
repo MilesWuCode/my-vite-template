@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { firebaseApp } from '~/modules/firebase/firebase'
 import { getAuth, signOut } from 'firebase/auth'
-import { useAuth } from '@vueuse/firebase/useAuth'
+import { useAuth as useFirebaseAuth } from '@vueuse/firebase/useAuth'
 
 const auth = getAuth(firebaseApp)
-const { isAuthenticated, user: authUser } = useAuth(auth)
+const { isAuthenticated, user: authUser } = useFirebaseAuth(auth)
 console.log('useAuth', authUser)
 
 // 登出

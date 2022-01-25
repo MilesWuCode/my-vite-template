@@ -12,7 +12,7 @@ import Logout from '~/components/pieces/Logout.vue'
       <router-link to="/login">Login</router-link>
     </li>
     <li>
-      <router-link to="/profile">Profile</router-link>
+      <router-link to="/profile?abc=123">Profile</router-link>
     </li>
     <li>
       <router-link to="/change-password">Change Password</router-link>

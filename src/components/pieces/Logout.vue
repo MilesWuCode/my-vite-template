@@ -2,12 +2,12 @@
 // firebase
 import { firebaseApp } from '~/modules/firebase/firebase'
 import { getAuth, signOut } from 'firebase/auth'
-import * as firebase from '@vueuse/firebase/useAuth'
+import { useAuth as useFirebaseAuth } from '@vueuse/firebase/useAuth'
 // auth
 import { useAuth } from '~/modules/auth'
 
 const firebaseAuth = getAuth(firebaseApp)
-const { isAuthenticated } = firebase.useAuth(firebaseAuth)
+const { isAuthenticated } = useFirebaseAuth(firebaseAuth)
 const auth = useAuth()
 
 const onClick = () => {

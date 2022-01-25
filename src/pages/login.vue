@@ -120,5 +120,5 @@ const onReset = () => {
 <route lang="yaml">
 meta:
   layout: content
-  requiresAuth: false
+  auth: guest-only
 </route>

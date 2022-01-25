@@ -3,7 +3,7 @@ import { onMounted } from 'vue'
 
 import { firebaseApp } from '~/modules/firebase/firebase'
 import { getAuth, onAuthStateChanged, FacebookAuthProvider, signInWithRedirect, getRedirectResult } from 'firebase/auth'
-import * as firebase from '@vueuse/firebase/useAuth'
+import { useAuth as useFirebaseAuth } from '@vueuse/firebase/useAuth'
 
 import { useAuth } from '~/modules/auth'
 import { useAuthStore } from '~/stores/auth'
@@ -12,7 +12,7 @@ const auth = useAuth()
 const authStore = useAuthStore()
 
 const firebaseAuth = getAuth(firebaseApp)
-const { isAuthenticated, user: authUser } = firebase.useAuth(firebaseAuth)
+const { isAuthenticated, user: authUser } = useFirebaseAuth(firebaseAuth)
 console.log('useAuth', isAuthenticated, authUser)
 
 // 觀查變化

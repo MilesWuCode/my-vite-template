@@ -1,6 +1,6 @@
 import { Auth, AuthOptions } from './types'
 import { App } from 'vue'
-import { RouteLocationRaw, RouteLocationNormalized, RouteRecordName } from 'vue-router'
+// import { RouteLocationRaw, RouteLocationNormalized, RouteRecordName } from 'vue-router'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import axios from '~/modules/axios/instance'
 import { useAuthStore } from '~/stores/auth'
@@ -10,36 +10,36 @@ const cookies = useCookies(['locale'])
 export let authInstance: Auth | undefined = undefined
 
 function setupAuth({ router }: AuthOptions): Auth {
-  function init() {
-    router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized): Promise<boolean | RouteLocationRaw> => {
-      // store
-      const authStore = useAuthStore()
+  // function init() {
+  //   router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized): Promise<boolean | RouteLocationRaw> => {
+  //     // store
+  //     const authStore = useAuthStore()
 
-      if (!authStore.loggedIn) {
-        // 抓取用戶資料存到store
-        await fetchUser()
-      }
+  //     if (!authStore.loggedIn) {
+  //       // 抓取用戶資料存到store
+  //       await fetchUser()
+  //     }
 
-      // 例外的router-name
-      if (typeof to.name === 'string' && !['login', 'register'].includes(to.name)) {
-        // 記錄網址到cookie
-        cookies.set('auth_redirect', to.fullPath)
-      }
+  //     // 例外的router-name
+  //     if (typeof to.name === 'string' && !['login', 'register'].includes(to.name)) {
+  //       // 記錄網址到cookie
+  //       cookies.set('auth_redirect', to.fullPath)
+  //     }
 
-      // 已登入不該進入
-      if (authStore.loggedIn && typeof to.name === 'string' && ['login', 'register'].includes(to.name)) {
-        return from.fullPath || '/'
-      }
+  //     // 已登入不該進入
+  //     if (authStore.loggedIn && typeof to.name === 'string' && ['login', 'register'].includes(to.name)) {
+  //       return from.fullPath || '/'
+  //     }
 
-      // 未登入回到登入頁
-      if (to.meta.requiresAuth && !authStore.loggedIn) {
-        return 'login'
-      }
+  //     // 未登入回到登入頁
+  //     if (to.meta.requiresAuth && !authStore.loggedIn) {
+  //       return 'login'
+  //     }
 
-      // 最後
-      return true
-    })
-  }
+  //     // 最後
+  //     return true
+  //   })
+  // }
 
   async function login(data: any) {
     cookies.set('password_token_type', data.token_type, { maxAge: data.expires_in })
@@ -109,7 +109,7 @@ function setupAuth({ router }: AuthOptions): Auth {
   }
 
   return {
-    init,
+    // init,
     login,
     fetchUser,
     loginWithSocialite,
@@ -122,7 +122,7 @@ export function createAuth(appOptions: AuthOptions) {
     install: (app: App): void => {
       authInstance = setupAuth(appOptions)
 
-      authInstance.init()
+      // authInstance.init()
     },
   }
 }

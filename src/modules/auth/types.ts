@@ -2,9 +2,9 @@ import { Router } from 'vue-router'
 // import { Store } from 'pinia'
 
 export interface Auth {
-  init: () => void
+  // init: () => void
   login(data: any): void
-  fetchUser: () => void
+  fetchUser: () => Promise<void>
   loginWithSocialite(driver: string, token: string): void
   logout: (redirect?: string) => void
 }

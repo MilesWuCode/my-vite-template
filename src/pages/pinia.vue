@@ -34,5 +34,5 @@ const random = () => {
 <route lang="yaml">
 meta:
   layout: content
-  requiresAuth: false
+  auth: everyone
 </route>

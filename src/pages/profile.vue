@@ -94,5 +94,5 @@ const onReset = () => {
 <route lang="yaml">
 meta:
   layout: content
-  requiresAuth: true
+  auth: member-only
 </route>
