@@ -1,3 +1,4 @@
+// vscode plugin
 module.exports = {
   client: {
     service: {
