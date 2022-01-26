@@ -13,6 +13,7 @@ const toast = useToast()
 const schema = markRaw(yup.object({
   name: yup.string().required().max(20).label('Name'),
   birthday: yup.date().required().label('Birthday'),
+  count: yup.number().required().label('Count'),
 }))
 
 const { meta, handleSubmit, resetForm, setErrors, isSubmitting, setFieldValue } = useForm({
@@ -25,6 +26,7 @@ const { meta, handleSubmit, resetForm, setErrors, isSubmitting, setFieldValue } 
 
 const { value: name, errorMessage: nameError } = useField<string>('name')
 const { value: birthday, errorMessage: birthdayError } = useField<string>('birthday')
+const { value: count, errorMessage: countError } = useField<number>('count')
 
 const getUser = async () => {
   try {
@@ -44,7 +46,7 @@ onMounted(async () => {
 const onSubmit = handleSubmit((values, actions) => {
   console.log(JSON.stringify(values, undefined, 2))
 
-  axios.post('/api/user', values)
+  axios.put('/api/user', values)
     .then(({ data }) => {
       console.log(data)
 
@@ -80,6 +82,8 @@ const onReset = () => {
           label="Birthday"
           placeholder="Birthday"
         />
+
+        <Input type="number" v-model="count" :error="countError" label="count" placeholder="count" />
 
         <div class="justify-end card-actions">
           <button type="submit" :disabled="!meta.valid || isSubmitting" class="btn btn-info">Submit</button>

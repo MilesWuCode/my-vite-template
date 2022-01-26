@@ -23,20 +23,22 @@ const logout = async () => {
   await auth.logout()
 }
 
+const open = () => {
+  isShow.value = true
+}
+
 const argee = () => {
-  console.log('3333')
   isShow.value = false
 
   logout()
 }
 
 const cancel = () => {
-  console.log('2222')
   isShow.value = false
 }
 </script>
 
 <template>
-  <a @click="isShow = true">Logout</a>
-  <Confirm :show="isShow" :argee="argee" :cancel="cancel" />
+  <a @click="open">Logout</a>
+  <Confirm :show="isShow" @argee="argee" @cancel="cancel" title="Confirm" />
 </template>

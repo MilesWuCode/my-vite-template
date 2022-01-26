@@ -9,17 +9,23 @@ import {
   TransitionChild
 } from '@headlessui/vue'
 
-const props = defineProps<{
+interface Props {
   show: boolean
-}>()
+  title?: string
+  message?: string
+  argee?: string
+  cancel?: string
+}
 
-watchEffect(() => {
-  if (props.show) {
-    isOpen.value = props.show
-  }
+const props = withDefaults(defineProps<Props>(), {
+  show: false,
+  title: '',
+  message: 'Are you sure ?',
+  argee: 'Yes',
+  cancel: 'No',
 })
 
-const isOpen = ref(false)
+const isOpen = ref(props.show)
 
 interface emitType {
   (e: 'argee'): void
@@ -28,20 +34,14 @@ interface emitType {
 
 const emit = defineEmits<emitType>()
 
-const argee = () => {
-  emit('argee')
-}
-
-const closeModal = () => {
-  console.log('1111')
-
-  emit('cancel')
-}
+watchEffect(() => {
+  isOpen.value = props.show
+})
 </script>
 
 <template>
   <TransitionRoot appear :show="isOpen" as="template">
-    <Dialog as="div" @close="closeModal">
+    <Dialog as="div" @close="emit('cancel')">
       <div class="fixed inset-0 z-10 overflow-y-auto">
         <div class="min-h-screen px-4 text-center">
           <TransitionChild
@@ -71,22 +71,23 @@ const closeModal = () => {
               class="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl"
             >
               <DialogTitle
-                as="h3"
-                class="text-lg font-medium leading-6 text-gray-900"
-              >Payment successful</DialogTitle>
-              <div class="mt-2">
-                <p class="text-sm text-gray-500">
-                  Your payment has been successfully submitted. We’ve sent you
-                  an email with all of the details of your order.
-                </p>
-              </div>
+                v-if="props.title"
+                class="mb-2 text-lg font-medium leading-6 text-gray-900"
+              >{{ props.title }}</DialogTitle>
+
+              <DialogDescription class="text-gray-500">{{ props.message }}</DialogDescription>
 
               <div class="mt-4">
                 <button
                   type="button"
-                  class="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                  @click="closeModal"
-                >Got it, thanks!</button>
+                  class="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                  @click="emit('argee')"
+                >{{ props.argee }}</button>
+                <button
+                  type="button"
+                  class="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                  @click="emit('cancel')"
+                >{{ props.cancel }}</button>
               </div>
             </div>
           </TransitionChild>

@@ -5,11 +5,33 @@ export default {
 </script>
 
 <script setup lang="ts">
-const props = defineProps<{
-  name: string
-  error: string
-  namodelValueme: string
-}>()
+// * example case1
+// const props = defineProps<{
+//   label: string,
+//   error: any,
+//   modelValue: any,
+// }>()
+
+// * example case2
+interface Props {
+  label: string,
+  error: string,
+  modelValue: string | number,
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  label: '',
+  error: '',
+  modelValue: '',
+})
+
+// * example case3
+// 不檢查undefined
+// const props = defineProps({
+//   label: String,
+//   error: String,
+//   modelValue: [String, Number],
+// })
 
 const emit = defineEmits(['update:modelValue'])
 

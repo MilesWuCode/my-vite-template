@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import Logout from '~/components/pieces/Logout.vue'
+import { useAuthStore } from '~/stores/auth'
+
+const authStore = useAuthStore()
 </script>
 
 <template>
@@ -20,7 +23,7 @@ import Logout from '~/components/pieces/Logout.vue'
     <li>
       <router-link to="/todo">Todo</router-link>
     </li>
-    <li>
+    <li v-if="authStore.loggedIn">
       <Logout />
     </li>
     <li class="menu-title">Vue</li>
