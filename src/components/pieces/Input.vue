@@ -5,11 +5,11 @@ export default {
 </script>
 
 <script setup lang="ts">
-const props = defineProps({
-  label: String,
-  error: String,
-  modelValue: String,
-})
+const props = defineProps<{
+  name: string
+  error: string
+  namodelValueme: string
+}>()
 
 const emit = defineEmits(['update:modelValue'])
 
