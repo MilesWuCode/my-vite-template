@@ -2,27 +2,48 @@
 import Input from '~/components/pieces/Input.vue'
 import { markRaw } from 'vue'
 import { useForm, useField } from 'vee-validate'
+import { useToast } from 'vue-toastification'
 import * as yup from 'yup'
+import axios from '~/modules/axios/instance'
 import lang from '~/modules/yup/zhTW.json'
 
 yup.setLocale(lang)
+const toast = useToast()
 
-const rules = {
+const schema = markRaw(yup.object({
   password: yup.string().required().min(8).label('Password'),
   comfirm_password: yup.string().required().oneOf([yup.ref('password')], 'Password must match').label('Comfirm Password'),
-}
-
-const schema = markRaw(yup.object(rules))
+}))
 
 const { meta, handleSubmit, resetForm, setErrors, isSubmitting, setFieldValue } = useForm({
   validationSchema: schema,
+  //  * example
+  initialValues: {
+    password: 'password',
+    comfirm_password: 'password',
+  }
 })
 
-const { value: password, errorMessage: passwordError } = useField<string>('password', rules.password, { validateOnValueUpdate: false })
-const { value: comfirmPassword, errorMessage: comfirmPasswordError } = useField<string>('comfirm_password', rules.comfirm_password, { validateOnValueUpdate: false })
+const { value: password, errorMessage: passwordError } = useField<string>('password')
+const { value: comfirmPassword, errorMessage: comfirmPasswordError } = useField<string>('comfirm_password')
 
 const onSubmit = handleSubmit((values, actions) => {
   console.log(JSON.stringify(values, undefined, 2))
+
+  axios.put('/api/user/change-password', values)
+    .then(({ data }) => {
+      console.log(data)
+
+      toast.success('Success')
+    }).catch((err) => {
+      if (err.response?.status == 422) {
+        console.log(err.response.data.errors)
+
+        actions.setErrors(err.response.data.errors)
+      } else {
+        toast.error(err.response.data.message)
+      }
+    })
 })
 
 const onReset = () => {

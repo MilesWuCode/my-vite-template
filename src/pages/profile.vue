@@ -1,17 +1,14 @@
 <script setup lang="ts">
 import Input from '~/components/pieces/Input.vue'
 import { markRaw, onMounted, reactive } from 'vue'
-import { useRouter } from 'vue-router'
 import { useForm, useField } from 'vee-validate'
+import { useToast } from 'vue-toastification'
 import * as yup from 'yup'
 import lang from '~/modules/yup/zhTW.json'
 import axios from '~/modules/axios/instance'
-import { useToast } from 'vue-toastification'
-
-const toast = useToast()
-const router = useRouter()
 
 yup.setLocale(lang)
+const toast = useToast()
 
 const schema = markRaw(yup.object({
   name: yup.string().required().max(20).label('Name'),
@@ -57,6 +54,8 @@ const onSubmit = handleSubmit((values, actions) => {
         console.log(err.response.data.errors)
 
         actions.setErrors(err.response.data.errors)
+      } else {
+        toast.error(err.response.data.message)
       }
     })
 })

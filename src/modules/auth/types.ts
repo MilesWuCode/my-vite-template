@@ -6,7 +6,7 @@ export interface Auth {
   login(data: any): void
   fetchUser: () => Promise<void>
   loginWithSocialite(driver: string, token: string): void
-  logout: (redirect?: string) => void
+  logout: (redirect?: string) => Promise<void>
 }
 
 export interface AuthOptions {

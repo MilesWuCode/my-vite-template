@@ -91,13 +91,15 @@ function setupAuth({ router }: AuthOptions): Auth {
       })
   }
 
-  function logout(redirect: string = '/') {
+  async function logout(redirect: string = '/') {
     // store
     const authStore = useAuthStore()
 
     if (!authStore.loggedIn) {
       return
     }
+
+    await axios.post('/api/auth/logout')
 
     cookies.remove('password_token_type')
     cookies.remove('password_access_token')

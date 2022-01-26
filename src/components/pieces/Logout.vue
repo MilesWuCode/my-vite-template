@@ -10,16 +10,22 @@ const firebaseAuth = getAuth(firebaseApp)
 const { isAuthenticated } = useFirebaseAuth(firebaseAuth)
 const auth = useAuth()
 
-const onClick = () => {
+const onClick = async () => {
+  // if (isAuthenticated.value) {
+  //   signOut(firebaseAuth).then(() => {
+  //     auth.logout()
+  //   }).catch((error) => {
+  //     console.log(error)
+  //   })
+  // } else {
+  //   auth.logout()
+  // }
+
   if (isAuthenticated.value) {
-    signOut(firebaseAuth).then(() => {
-      auth.logout()
-    }).catch((error) => {
-      console.log(error)
-    })
-  } else {
-    auth.logout()
+    await signOut(firebaseAuth)
   }
+
+  await auth.logout()
 }
 </script>
 
