@@ -1,35 +1,26 @@
 <script setup lang="ts">
-import { useHead } from '@vueuse/head'
-import Title from '~/components/pieces/Title.vue'
-import Json from '~/components/pieces/Json.vue'
-import axios from '~/modules/axios/instance'
+import Item from '~/components/todo/Item.vue'
 import { ref } from 'vue'
 
 const json = ref({})
 
-useHead({
-  title: 'Todo Title',
-  meta: [
-    { name: 'description', content: 'Todo Description' },
-  ],
-})
-
-const onClick = async () => {
-  try {
-    const get = await axios.get('/')
-    console.log('status', get.status)
-    json.value = get.data
-  } catch (err) {
-    console.log('err', err)
-  }
-}
 </script>
 
 <template>
   <div>
-    <Title name="Todo" />
-    <button @click="onClick">Click</button>
-    <Json :data="json" />
+    <div class="max-w-sm p-4 mx-auto my-0 space-y-4">
+      <h1 class="text-2xl">Todo</h1>
+      <div class="space-y-4">
+        <Item />
+        <Item />
+        <Item />
+        <Item />
+        <Item />
+        <Item />
+        <Item />
+        <Item />
+      </div>
+    </div>
   </div>
 </template>
 
