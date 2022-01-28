@@ -3,7 +3,7 @@ import Item from '~/components/todo/Item.vue'
 import { ref } from 'vue'
 import Insert from '~/components/todo/Insert.vue'
 import { useResult } from '@vue/apollo-composable'
-import { useMyTodosQuery, Todo } from '~/graphql/graphqlOperations'
+import { useMyTodosQuery } from '~/graphql/graphqlOperations'
 
 const page = ref(1)
 const { result, loading, error } = useMyTodosQuery({ first: 3, page: page.value })
