@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Dot from '~/assets/svgs/dot.svg'
+import Dropdown from '~/components/todo/Dropdown2.vue'
 </script>
 
 <template>
@@ -11,9 +11,7 @@ import Dot from '~/assets/svgs/dot.svg'
       <p>Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum</p>
     </div>
     <div class="flex-none">
-      <button class="btn btn-sm btn-ghost btn-square">
-        <Dot />
-      </button>
+      <Dropdown />
     </div>
   </div>
 </template>
