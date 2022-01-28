@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
 import Icons from 'unplugin-icons/vite'
+import svgLoader from 'vite-svg-loader'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -28,6 +29,8 @@ export default defineConfig({
       // 自動安裝來源
       autoInstall: true
     }),
+
+    svgLoader(),
   ],
 
   // build: {
