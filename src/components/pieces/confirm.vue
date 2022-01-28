@@ -68,16 +68,16 @@ watchEffect(() => {
             leave-to="opacity-0 scale-95"
           >
             <div
-              class="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl"
+              class="inline-block w-full max-w-md p-6 my-8 space-y-2 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl"
             >
               <DialogTitle
                 v-if="props.title"
-                class="mb-2 text-lg font-medium leading-6 text-gray-900"
+                class="text-lg font-medium leading-6 text-gray-900"
               >{{ props.title }}</DialogTitle>
 
               <DialogDescription class="text-gray-500">{{ props.message }}</DialogDescription>
 
-              <div class="mt-4">
+              <div class="flex justify-end space-x-4">
                 <button
                   type="button"
                   class="px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"

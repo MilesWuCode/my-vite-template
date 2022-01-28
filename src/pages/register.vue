@@ -87,7 +87,7 @@ const onReset = () => {
           placeholder="comfirm password"
         />
 
-        <div class="justify-end card-actions">
+        <div class="flex justify-end">
           <button type="submit" class="btn btn-info">Submit</button>
           <button @click="onReset" type="button" class="btn btn-ghost">Reset</button>
         </div>

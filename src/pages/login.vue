@@ -102,7 +102,7 @@ const onReset = () => {
           </label>
         </div>
 
-        <div class="justify-end card-actions">
+        <div class="flex justify-end">
           <button type="submit" :disabled="!meta.valid || isSubmitting" class="btn btn-info">Submit</button>
           <button @click="onReset" type="button" class="btn btn-ghost">Reset</button>
         </div>
