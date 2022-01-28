@@ -79,6 +79,9 @@ rm -rf node_modules
 npm install
 npx sb@next init --builder storybook-builder-vite
 npm run storybook
+
+# Vite SVG loader
+pnpm i vite-svg-loader
 ```
 
 ```diff
