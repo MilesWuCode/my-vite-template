@@ -7,6 +7,12 @@ import lang from '~/modules/yup/zhTW.json'
 
 yup.setLocale(lang)
 
+interface emitType {
+  (e: 'inserted'): void
+}
+
+const emit = defineEmits<emitType>()
+
 const schema = markRaw(yup.object({
   content: yup.string().required().max(100).label('content'),
 }))
@@ -27,12 +33,16 @@ const onSubmit = handleSubmit((values, actions) => {
 
   if (values.content) {
     void mutate({ content: values.content })
+
+    emit('inserted')
   }
 })
 
 onDone((result) => {
   console.log(result)
 })
+
+
 </script>
 
 <template>
