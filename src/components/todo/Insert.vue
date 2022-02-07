@@ -24,8 +24,10 @@ const { mutate, loading, error, onDone } = useCreateTodoMutation({ variables: { 
 
 const onSubmit = handleSubmit((values, actions) => {
   console.log(JSON.stringify(values, undefined, 2))
-  // ! wip
-  void mutate({ content: 'aaaaa' })
+
+  if (values.content) {
+    void mutate({ content: values.content })
+  }
 })
 
 onDone((result) => {

@@ -6,7 +6,7 @@ import { useResult } from '@vue/apollo-composable'
 import { useMyTodosQuery } from '~/graphql/graphqlOperations'
 
 const page = ref(1)
-const { result, loading, error } = useMyTodosQuery({ first: 3, page: page.value })
+const { result, loading, error } = useMyTodosQuery({ first: 10, page: page.value })
 const todos = useResult(result, [], (data) => data.myTodos.data)
 </script>
 
