@@ -41,23 +41,22 @@ export default defineConfig({
 
   optimizeDeps: {
     include: [
-      '@apollo/client/core',
       '@apollo/client/cache',
+      '@apollo/client/core',
       '@headlessui/vue',
+      '@vue/apollo-composable',
+      '@vueuse/core',
       '@vueuse/firebase/useAuth',
       '@vueuse/head',
       'firebase/app',
       'firebase/auth',
-      // 'graphql-tag',
+      'graphql-tag',
       'pinia',
       'vee-validate',
       'vue-router',
       'vue-toastification',
       'vue',
       'yup',
-      // '@vue/apollo-composable',
-      // '@vueuse/core',
-
     ]
   },
 
