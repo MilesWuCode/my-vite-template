@@ -345,6 +345,8 @@ export type SimplePaginatorInfo = {
   currentPage: Scalars['Int'];
   /** Index of the first item in the current page. */
   firstItem?: Maybe<Scalars['Int']>;
+  /** Are there more pages after this one? */
+  hasMorePages: Scalars['Boolean'];
   /** Index of the last item in the current page. */
   lastItem?: Maybe<Scalars['Int']>;
   /** Number of items per page. */
@@ -469,7 +471,7 @@ export type UserTodosOrderByOrderByClause = {
   order: SortOrder;
 };
 
-export type BlogFragment = { __typename?: 'Blog', id: string, title: string, body?: string | null | undefined, status: boolean, like_count: number, dislike_count: number, publish_at?: any | null | undefined, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string }, tag?: { __typename?: 'TagPaginator', data: Array<{ __typename?: 'Tag', id: string, name: string }> } | null | undefined, gallery?: { __typename?: 'MediaPaginator', data: Array<{ __typename?: 'Media', id: string, url: string }> } | null | undefined };
+export type BlogFragment = { __typename?: 'Blog', id: string, title: string, body?: string | null, status: boolean, like_count: number, dislike_count: number, publish_at?: any | null, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string }, tag?: { __typename?: 'TagPaginator', data: Array<{ __typename?: 'Tag', id: string, name: string }> } | null, gallery?: { __typename?: 'MediaPaginator', data: Array<{ __typename?: 'Media', id: string, url: string }> } | null };
 
 export type BlogsQueryVariables = Exact<{
   first: Scalars['Int'];
@@ -477,7 +479,7 @@ export type BlogsQueryVariables = Exact<{
 }>;
 
 
-export type BlogsQuery = { __typename?: 'Query', blogs?: { __typename?: 'BlogPaginator', data: Array<{ __typename?: 'Blog', id: string, title: string, body?: string | null | undefined, status: boolean, like_count: number, dislike_count: number, publish_at?: any | null | undefined, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string }, tag?: { __typename?: 'TagPaginator', data: Array<{ __typename?: 'Tag', id: string, name: string }> } | null | undefined, gallery?: { __typename?: 'MediaPaginator', data: Array<{ __typename?: 'Media', id: string, url: string }> } | null | undefined }>, paginatorInfo: { __typename?: 'PaginatorInfo', currentPage: number, lastPage: number } } | null | undefined };
+export type BlogsQuery = { __typename?: 'Query', blogs?: { __typename?: 'BlogPaginator', data: Array<{ __typename?: 'Blog', id: string, title: string, body?: string | null, status: boolean, like_count: number, dislike_count: number, publish_at?: any | null, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string }, tag?: { __typename?: 'TagPaginator', data: Array<{ __typename?: 'Tag', id: string, name: string }> } | null, gallery?: { __typename?: 'MediaPaginator', data: Array<{ __typename?: 'Media', id: string, url: string }> } | null }>, paginatorInfo: { __typename?: 'PaginatorInfo', count: number, currentPage: number, firstItem?: number | null, hasMorePages: boolean, lastItem?: number | null, lastPage: number, perPage: number, total: number } } | null };
 
 export type MyBlogsQueryVariables = Exact<{
   first: Scalars['Int'];
@@ -485,7 +487,7 @@ export type MyBlogsQueryVariables = Exact<{
 }>;
 
 
-export type MyBlogsQuery = { __typename?: 'Query', myBlogs?: { __typename?: 'BlogPaginator', data: Array<{ __typename?: 'Blog', id: string, title: string, body?: string | null | undefined, status: boolean, like_count: number, dislike_count: number, publish_at?: any | null | undefined, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string }, tag?: { __typename?: 'TagPaginator', data: Array<{ __typename?: 'Tag', id: string, name: string }> } | null | undefined, gallery?: { __typename?: 'MediaPaginator', data: Array<{ __typename?: 'Media', id: string, url: string }> } | null | undefined }>, paginatorInfo: { __typename?: 'PaginatorInfo', currentPage: number, lastPage: number } } | null | undefined };
+export type MyBlogsQuery = { __typename?: 'Query', myBlogs?: { __typename?: 'BlogPaginator', data: Array<{ __typename?: 'Blog', id: string, title: string, body?: string | null, status: boolean, like_count: number, dislike_count: number, publish_at?: any | null, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string }, tag?: { __typename?: 'TagPaginator', data: Array<{ __typename?: 'Tag', id: string, name: string }> } | null, gallery?: { __typename?: 'MediaPaginator', data: Array<{ __typename?: 'Media', id: string, url: string }> } | null }>, paginatorInfo: { __typename?: 'PaginatorInfo', count: number, currentPage: number, firstItem?: number | null, hasMorePages: boolean, lastItem?: number | null, lastPage: number, perPage: number, total: number } } | null };
 
 export type UserFragment = { __typename?: 'User', id: string, name: string, email: string, email_verified_at: any, avatar_url: string, created_at: any, updated_at: any };
 
@@ -501,37 +503,38 @@ export type MyTodoQueryVariables = Exact<{
 }>;
 
 
-export type MyTodoQuery = { __typename?: 'Query', myTodo?: { __typename?: 'Todo', id: string, content: string, active: boolean, created_at: any, updated_at: any } | null | undefined };
+export type MyTodoQuery = { __typename?: 'Query', myTodo?: { __typename?: 'Todo', id: string, content: string, active: boolean, created_at: any, updated_at: any } | null };
 
 export type MyTodosQueryVariables = Exact<{
   first: Scalars['Int'];
-  page?: InputMaybe<Scalars['Int']>;
+  page: Scalars['Int'];
 }>;
 
 
-export type MyTodosQuery = { __typename?: 'Query', myTodos?: { __typename?: 'TodoPaginator', data: Array<{ __typename?: 'Todo', id: string, content: string, active: boolean, created_at: any, updated_at: any }> } | null | undefined };
+export type MyTodosQuery = { __typename?: 'Query', myTodos?: { __typename?: 'TodoPaginator', data: Array<{ __typename?: 'Todo', id: string, content: string, active: boolean, created_at: any, updated_at: any }>, paginatorInfo: { __typename?: 'PaginatorInfo', count: number, currentPage: number, firstItem?: number | null, hasMorePages: boolean, lastItem?: number | null, lastPage: number, perPage: number, total: number } } | null };
 
 export type CreateTodoMutationVariables = Exact<{
   content: Scalars['String'];
 }>;
 
 
-export type CreateTodoMutation = { __typename?: 'Mutation', createTodo?: { __typename?: 'Todo', id: string, content: string, active: boolean, created_at: any, updated_at: any } | null | undefined };
+export type CreateTodoMutation = { __typename?: 'Mutation', createTodo?: { __typename?: 'Todo', id: string, content: string, active: boolean, created_at: any, updated_at: any } | null };
 
 export type UpdateTodoMutationVariables = Exact<{
   id: Scalars['ID'];
   content?: InputMaybe<Scalars['String']>;
+  active?: InputMaybe<Scalars['Boolean']>;
 }>;
 
 
-export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo?: { __typename?: 'Todo', id: string, content: string, active: boolean, created_at: any, updated_at: any } | null | undefined };
+export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo?: { __typename?: 'Todo', id: string, content: string, active: boolean, created_at: any, updated_at: any } | null };
 
 export type DeleteTodoMutationVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type DeleteTodoMutation = { __typename?: 'Mutation', deleteTodo?: { __typename?: 'Todo', id: string, content: string, active: boolean, created_at: any, updated_at: any } | null | undefined };
+export type DeleteTodoMutation = { __typename?: 'Mutation', deleteTodo?: { __typename?: 'Todo', id: string, content: string, active: boolean, created_at: any, updated_at: any } | null };
 
 export const BlogFragmentDoc = gql`
     fragment blog on Blog {
@@ -589,8 +592,14 @@ export const BlogsDocument = gql`
       ...blog
     }
     paginatorInfo {
+      count
       currentPage
+      firstItem
+      hasMorePages
+      lastItem
       lastPage
+      perPage
+      total
     }
   }
 }
@@ -615,6 +624,9 @@ export const BlogsDocument = gql`
 export function useBlogsQuery(variables: BlogsQueryVariables | VueCompositionApi.Ref<BlogsQueryVariables> | ReactiveFunction<BlogsQueryVariables>, options: VueApolloComposable.UseQueryOptions<BlogsQuery, BlogsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<BlogsQuery, BlogsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<BlogsQuery, BlogsQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<BlogsQuery, BlogsQueryVariables>(BlogsDocument, variables, options);
 }
+export function useBlogsLazyQuery(variables: BlogsQueryVariables | VueCompositionApi.Ref<BlogsQueryVariables> | ReactiveFunction<BlogsQueryVariables>, options: VueApolloComposable.UseQueryOptions<BlogsQuery, BlogsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<BlogsQuery, BlogsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<BlogsQuery, BlogsQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<BlogsQuery, BlogsQueryVariables>(BlogsDocument, variables, options);
+}
 export type BlogsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<BlogsQuery, BlogsQueryVariables>;
 export const MyBlogsDocument = gql`
     query myBlogs($first: Int!, $page: Int) {
@@ -623,8 +635,14 @@ export const MyBlogsDocument = gql`
       ...blog
     }
     paginatorInfo {
+      count
       currentPage
+      firstItem
+      hasMorePages
+      lastItem
       lastPage
+      perPage
+      total
     }
   }
 }
@@ -649,6 +667,9 @@ export const MyBlogsDocument = gql`
 export function useMyBlogsQuery(variables: MyBlogsQueryVariables | VueCompositionApi.Ref<MyBlogsQueryVariables> | ReactiveFunction<MyBlogsQueryVariables>, options: VueApolloComposable.UseQueryOptions<MyBlogsQuery, MyBlogsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MyBlogsQuery, MyBlogsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MyBlogsQuery, MyBlogsQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<MyBlogsQuery, MyBlogsQueryVariables>(MyBlogsDocument, variables, options);
 }
+export function useMyBlogsLazyQuery(variables: MyBlogsQueryVariables | VueCompositionApi.Ref<MyBlogsQueryVariables> | ReactiveFunction<MyBlogsQueryVariables>, options: VueApolloComposable.UseQueryOptions<MyBlogsQuery, MyBlogsQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MyBlogsQuery, MyBlogsQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MyBlogsQuery, MyBlogsQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<MyBlogsQuery, MyBlogsQueryVariables>(MyBlogsDocument, variables, options);
+}
 export type MyBlogsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<MyBlogsQuery, MyBlogsQueryVariables>;
 export const MeDocument = gql`
     query me {
@@ -672,6 +693,9 @@ export const MeDocument = gql`
  */
 export function useMeQuery(options: VueApolloComposable.UseQueryOptions<MeQuery, MeQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MeQuery, MeQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MeQuery, MeQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<MeQuery, MeQueryVariables>(MeDocument, {}, options);
+}
+export function useMeLazyQuery(options: VueApolloComposable.UseQueryOptions<MeQuery, MeQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MeQuery, MeQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MeQuery, MeQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, {}, options);
 }
 export type MeQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<MeQuery, MeQueryVariables>;
 export const MyTodoDocument = gql`
@@ -700,12 +724,25 @@ export const MyTodoDocument = gql`
 export function useMyTodoQuery(variables: MyTodoQueryVariables | VueCompositionApi.Ref<MyTodoQueryVariables> | ReactiveFunction<MyTodoQueryVariables>, options: VueApolloComposable.UseQueryOptions<MyTodoQuery, MyTodoQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MyTodoQuery, MyTodoQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MyTodoQuery, MyTodoQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<MyTodoQuery, MyTodoQueryVariables>(MyTodoDocument, variables, options);
 }
+export function useMyTodoLazyQuery(variables: MyTodoQueryVariables | VueCompositionApi.Ref<MyTodoQueryVariables> | ReactiveFunction<MyTodoQueryVariables>, options: VueApolloComposable.UseQueryOptions<MyTodoQuery, MyTodoQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MyTodoQuery, MyTodoQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MyTodoQuery, MyTodoQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<MyTodoQuery, MyTodoQueryVariables>(MyTodoDocument, variables, options);
+}
 export type MyTodoQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<MyTodoQuery, MyTodoQueryVariables>;
 export const MyTodosDocument = gql`
-    query myTodos($first: Int!, $page: Int) {
-  myTodos(first: $first, page: $page) {
+    query myTodos($first: Int!, $page: Int!) {
+  myTodos(first: $first, page: $page, orderBy: {column: CREATED_AT, order: DESC}) {
     data {
       ...todo
+    }
+    paginatorInfo {
+      count
+      currentPage
+      firstItem
+      hasMorePages
+      lastItem
+      lastPage
+      perPage
+      total
     }
   }
 }
@@ -729,6 +766,9 @@ export const MyTodosDocument = gql`
  */
 export function useMyTodosQuery(variables: MyTodosQueryVariables | VueCompositionApi.Ref<MyTodosQueryVariables> | ReactiveFunction<MyTodosQueryVariables>, options: VueApolloComposable.UseQueryOptions<MyTodosQuery, MyTodosQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MyTodosQuery, MyTodosQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MyTodosQuery, MyTodosQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<MyTodosQuery, MyTodosQueryVariables>(MyTodosDocument, variables, options);
+}
+export function useMyTodosLazyQuery(variables: MyTodosQueryVariables | VueCompositionApi.Ref<MyTodosQueryVariables> | ReactiveFunction<MyTodosQueryVariables>, options: VueApolloComposable.UseQueryOptions<MyTodosQuery, MyTodosQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<MyTodosQuery, MyTodosQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<MyTodosQuery, MyTodosQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<MyTodosQuery, MyTodosQueryVariables>(MyTodosDocument, variables, options);
 }
 export type MyTodosQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<MyTodosQuery, MyTodosQueryVariables>;
 export const CreateTodoDocument = gql`
@@ -761,8 +801,8 @@ export function useCreateTodoMutation(options: VueApolloComposable.UseMutationOp
 }
 export type CreateTodoMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<CreateTodoMutation, CreateTodoMutationVariables>;
 export const UpdateTodoDocument = gql`
-    mutation updateTodo($id: ID!, $content: String) {
-  updateTodo(id: $id, content: $content) {
+    mutation updateTodo($id: ID!, $content: String, $active: Boolean) {
+  updateTodo(id: $id, content: $content, active: $active) {
     ...todo
   }
 }
@@ -783,6 +823,7 @@ export const UpdateTodoDocument = gql`
  *   variables: {
  *     id: // value for 'id'
  *     content: // value for 'content'
+ *     active: // value for 'active'
  *   },
  * });
  */

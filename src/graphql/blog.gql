@@ -33,8 +33,14 @@ query blogs($first: Int!, $page: Int) {
       ...blog
     }
     paginatorInfo {
+      count
       currentPage
+      firstItem
+      hasMorePages
+      lastItem
       lastPage
+      perPage
+      total
     }
   }
 }
@@ -46,12 +52,19 @@ query myBlogs($first: Int!, $page: Int) {
       ...blog
     }
     paginatorInfo {
+      count
       currentPage
+      firstItem
+      hasMorePages
+      lastItem
       lastPage
+      perPage
+      total
     }
   }
 }
 
+# offsetLimitPagination
 # query blogs($first: Int!, $after: String) {
 #   blogs(first: $first, after:$after) {
 #     edges {

@@ -41,8 +41,6 @@ const onSubmit = handleSubmit((values, actions) => {
 onDone((result) => {
   console.log(result)
 })
-
-
 </script>
 
 <template>

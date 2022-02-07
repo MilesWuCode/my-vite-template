@@ -14,7 +14,8 @@ const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        blogs: relayStylePagination()
+        myTodos: relayStylePagination(),
+        blogs: relayStylePagination(),
       },
     },
   },

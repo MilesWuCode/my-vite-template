@@ -12,10 +12,24 @@ query myTodo($id: ID!) {
   }
 }
 
-query myTodos($first: Int!, $page: Int) {
-  myTodos(first: $first, page: $page) {
+query myTodos($first: Int!, $page: Int!) {
+  myTodos(
+    first: $first
+    page: $page
+    orderBy: { column: CREATED_AT, order: DESC }
+  ) {
     data {
       ...todo
+    }
+    paginatorInfo {
+      count
+      currentPage
+      firstItem
+      hasMorePages
+      lastItem
+      lastPage
+      perPage
+      total
     }
   }
 }
@@ -26,8 +40,8 @@ mutation createTodo($content: String!) {
   }
 }
 
-mutation updateTodo($id: ID!, $content: String) {
-  updateTodo(id: $id, content: $content) {
+mutation updateTodo($id: ID!, $content: String, $active: Boolean) {
+  updateTodo(id: $id, content: $content, active: $active) {
     ...todo
   }
 }
