@@ -3,6 +3,8 @@ import { ref } from 'vue';
 import Dropdown from '~/components/todo/Dropdown2.vue'
 import { useUpdateTodoMutation } from "~/graphql/graphqlOperations";
 import { useToast } from 'vue-toastification'
+import { debounce } from 'lodash-es'
+
 const toast = useToast()
 
 interface Todo {
@@ -19,14 +21,19 @@ const checked = ref(props.todo.active)
 
 const { mutate, loading, error, onDone } = useUpdateTodoMutation({ variables: { id: props.todo.id } })
 
-const onChange = () => {
+const saveChange = () => {
   console.log(checked.value)
-
-  // ! wip debounce
+  
   void mutate({ id: props.todo.id, active: checked.value })
 }
 
-onDone(()=>{
+const onDebounce = debounce(saveChange, 2000)
+
+const onChange = () => {
+  onDebounce()
+}
+
+onDone(() => {
   toast.success('Success')
 })
 </script>
