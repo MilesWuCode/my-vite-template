@@ -100,3 +100,10 @@ pnpm i vite-svg-loader
   },
 }
 ```
+
+
+```sh
+docker build -t app .
+
+docker run --name app -d -p 8080:3000 app
+```

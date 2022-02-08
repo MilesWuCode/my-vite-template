@@ -25,9 +25,6 @@ const random = () => {
       <button @click="reset" class="btn btn-accent">Reset</button>
       <button @click="random" class="btn btn-accent">random</button>
     </div>
-    <pre>
-        <code class="block">{{ JSON.stringify(store, undefined, 2) }}</code>
-    </pre>
   </div>
 </template>
 

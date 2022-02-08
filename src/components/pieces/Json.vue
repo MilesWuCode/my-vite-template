@@ -5,5 +5,5 @@ const props = defineProps({
 </script>
 
 <template>
-  <pre><code class="block">{{ JSON.stringify(props.data, undefined, 2) }}</code></pre>
+  <pre><code class="block">{{ props.data }}</code></pre>
 </template>

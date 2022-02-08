@@ -39,7 +39,7 @@ const onSubmit = handleSubmit((values, actions) => {
 })
 
 onDone((result) => {
-  console.log(result)
+  console.log(JSON.stringify(result, undefined, 2))
 
   resetForm()
 })
