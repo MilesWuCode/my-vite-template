@@ -27,7 +27,7 @@ const saveChange = () => {
   void mutate({ id: props.todo.id, active: checked.value })
 }
 
-const onDebounce = debounce(saveChange, 2000)
+const onDebounce = debounce(saveChange, 1000)
 
 const onChange = () => {
   onDebounce()

@@ -40,6 +40,8 @@ const onSubmit = handleSubmit((values, actions) => {
 
 onDone((result) => {
   console.log(result)
+
+  resetForm()
 })
 </script>
 
@@ -54,7 +56,7 @@ onDone((result) => {
       />
       <button
         v-if="content"
-        :disabled="!meta.valid || isSubmitting"
+        :disabled="!meta.valid || loading"
         class="absolute top-0 right-0 rounded-l-none btn btn-primary"
         @click="onSubmit"
       >go</button>
