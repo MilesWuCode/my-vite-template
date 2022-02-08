@@ -105,5 +105,7 @@ pnpm i vite-svg-loader
 ```sh
 docker build -t vite-nginx .
 
-docker run --name vite-nginx -d -p 8080:80 vite-nginx 
+docker run --name vite-nginx -d -p 8080:80 vite-nginx
+
+docker exec -it vite-nginx /bin/sh
 ```

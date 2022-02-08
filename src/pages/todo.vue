@@ -1,43 +1,44 @@
 <script setup lang="ts">
-import Item from "~/components/todo/Item.vue";
-import Pagination from "~/components/pieces/Pagination.vue";
-import { ref } from "vue";
-import Insert from "~/components/todo/Insert.vue";
-import { useResult } from "@vue/apollo-composable";
-import { useMyTodosQuery } from "~/graphql/graphqlOperations";
+import Item from '~/components/todo/Item.vue'
+import Pagination from '~/components/pieces/Pagination.vue'
+import { ref } from 'vue'
+import Insert from '~/components/todo/Insert.vue'
+import { useResult } from '@vue/apollo-composable'
+import { useMyTodosQuery } from '~/graphql/graphqlOperations'
 
-const page = ref(1);
+const page = ref(1)
 
-const { result, loading, error, refetch, fetchMore, variables } = useMyTodosQuery({
-  first: 4,
-  page: page.value,
-});
+const { result, loading, error, refetch, fetchMore, variables } =
+  useMyTodosQuery({
+    first: 4,
+    page: page.value
+  })
 
-const todos = useResult(result);
+const todos = useResult(result)
 
 const inserted = () => {
   page.value = 1
 
-  refetch();
-};
+  refetch()
+}
 
 const changePage = (n: number) => {
-  page.value = n;
+  page.value = n
 
   fetchMore({
     variables: {
       first: 4,
-      page: page.value,
-    },
+      page: page.value
+    }
   })
-};
+}
 </script>
 
 <template>
   <div>
     <div class="max-w-sm p-4 mx-auto my-0 space-y-4">
       <h1 class="text-2xl">Todo</h1>
-      
+
       <Insert @inserted="inserted" />
 
       <div v-if="loading">loading...</div>

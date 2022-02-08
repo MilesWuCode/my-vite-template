@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
   title: '',
   message: 'Are you sure ?',
   argee: 'Yes',
-  cancel: 'No',
+  cancel: 'No'
 })
 
 const isOpen = ref(props.show)
