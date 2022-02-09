@@ -1,3 +1,7 @@
+# history
+
+## install
+
 ```sh
 # pnpm
 npm install -g pnpm
@@ -101,6 +105,7 @@ pnpm i vite-svg-loader
 }
 ```
 
+## docker
 
 ```sh
 docker build -t vite-nginx .
@@ -108,4 +113,10 @@ docker build -t vite-nginx .
 docker run --name vite-nginx -d -p 8080:80 vite-nginx
 
 docker exec -it vite-nginx /bin/sh
+```
+
+## storybook
+
+```sh
+npx sb@next init --builder storybook-builder-vite
 ```
