@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import './index.css'
 
+// head
 import { createHead } from '@vueuse/head'
 
 // store:pinia
