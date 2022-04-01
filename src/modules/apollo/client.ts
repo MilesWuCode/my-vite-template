@@ -7,7 +7,7 @@ import { onError } from "@apollo/client/link/error"
 const cookies = useCookies(['locale'])
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost/graphql'
+  uri: import.meta.env.VITE_GRAPHQL_URL
 })
 
 const cache = new InMemoryCache({

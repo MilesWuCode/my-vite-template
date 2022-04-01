@@ -11,6 +11,7 @@ interface ImportMetaEnv extends Readonly<Record<string, string | boolean | numbe
   readonly VITE_API_URL: string,
   readonly VITE_PASSWORD_GRANT_CLIENT_ID: string,
   readonly VITE_PASSWORD_GRANT_CLIENT_SECRET: string,
+  readonly VITE_GRAPHQL_URL: string,
   readonly VITE_FIREBASE_PROJECT_ID: string,
   readonly VITE_FIREBASE_APP_ID: string,
   readonly VITE_FIREBASE_API_KEY: string,
